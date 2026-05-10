@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="logged-in">
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Global Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">Traveloop <div class="dot"></div></div>
+    <div class="topbar-center">
+      <i class="fas fa-search"></i>
+      <input type="text" class="topbar-search" placeholder="Search trips, activities, cities...">
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+      <button class="btn-icon"><i class="fas fa-filter"></i></button>
+      <button class="btn-icon"><i class="fas fa-sort"></i></button>
+      <div class="avatar-circle">AM</div>
+    </div>
+  </div>
+
+  <!-- Global Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Main</div>
+      <a class="sidebar-link " href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+      <a class="sidebar-link " href="trips.html"><i class="fas fa-map-marked-alt"></i> My Trips <span class="badge badge-accent" style="background:var(--accent);color:white;margin-left:auto">3</span></a>
+      <a class="sidebar-link " href="create-trip.html"><i class="fas fa-plus-circle"></i> Plan a Trip</a>
+      <a class="sidebar-link " href="itinerary.html"><i class="fas fa-calendar-alt"></i> Itinerary</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tools</div>
+      <a class="sidebar-link " href="search.html"><i class="fas fa-search"></i> Activity Search</a>
+      <a class="sidebar-link " href="checklist.html"><i class="fas fa-check-square"></i> Packing List</a>
+      <a class="sidebar-link " href="notes.html"><i class="fas fa-sticky-note"></i> Trip Notes</a>
+      <a class="sidebar-link " href="budget.html"><i class="fas fa-file-invoice-dollar"></i> Expenses</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Discover</div>
+      <a class="sidebar-link " href="community.html"><i class="fas fa-users"></i> Community</a>
+      <a class="sidebar-link active" href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Admin</div>
+      <a class="sidebar-link " href="admin.html"><i class="fas fa-cog"></i> Admin Panel</a>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-nav">
+    <a class="" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="" href="trips.html"><i class="fas fa-map-marked-alt"></i> Trips</a>
+    <a class="" href="checklist.html"><i class="fas fa-check-square"></i> Packing</a>
+    <a class="" href="community.html"><i class="fas fa-users"></i> Community</a>
+    <a class="active" href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+  </div>
+<div class="main">
+<div class="screen-header"><h1>User Profile</h1></div>
+      <div class="profile-header">
+        <div class="profile-avatar">DP</div>
+        <div class="profile-info">
+          <h1>Dev Parmar</h1>
+          <p style="color:var(--text2); margin-bottom:8px">dev@gmail.com · Location not set</p>
+          <p style="margin-bottom:12px;">Welcome to my travel profile!</p>
+        </div>
+        <div class="profile-stats">
+          <div><div class="profile-stat-val" id="profile-trip-count">0</div><div class="profile-stat-label">Trips</div></div>
+          <div><div class="profile-stat-val" id="profile-countries-count">0</div><div class="profile-stat-label">Countries</div></div>
+          <div><div class="profile-stat-val" id="profile-cities-count">0</div><div class="profile-stat-label">Cities</div></div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:16px; margin-bottom:24px;">
+        <button class="btn btn-primary" style="flex:1" onclick="window.location.href='create-trip.html'"><i class="fas fa-plus"></i> Plan New Trip</button>
+        <button class="btn" style="flex:1; border:1px solid var(--border)" onclick="showModal('edit-profile-modal')"><i class="fas fa-edit"></i> Edit Profile</button>
+      </div>
+
+      <div class="card" style="margin-bottom: 24px; padding: 16px;">
+        <h3 class="card-title" style="margin-bottom: 12px;">Travel Preferences</h3>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="badge badge-teal">Adventure <i class="fas fa-times" style="margin-left:6px; cursor:pointer; opacity:0.7" onclick="this.parentElement.remove(); showToast('Preference removed')"></i></span>
+          <span class="badge badge-pink">Beach Lover <i class="fas fa-times" style="margin-left:6px; cursor:pointer; opacity:0.7" onclick="this.parentElement.remove(); showToast('Preference removed')"></i></span>
+          <span class="badge badge-blue">Culture <i class="fas fa-times" style="margin-left:6px; cursor:pointer; opacity:0.7" onclick="this.parentElement.remove(); showToast('Preference removed')"></i></span>
+          <span class="badge badge-purple">Solo Traveler <i class="fas fa-times" style="margin-left:6px; cursor:pointer; opacity:0.7" onclick="this.parentElement.remove(); showToast('Preference removed')"></i></span>
+          <span class="badge badge-gray" style="cursor:pointer" onclick="addPreference()">+ Add Preference</span>
+        </div>
+      </div>
+      
+      <div class="trip-mode">
+        <h3 class="card-title" style="margin-bottom:16px">Upcoming Trips</h3>
+        <div class="grid-3" id="upcoming-trips-grid" style="margin-bottom:32px">
+          <div style="color:var(--text2)">No upcoming trips found.</div>
+        </div>
+        <h3 class="card-title" style="margin-bottom:16px">Previous Trips</h3>
+        <div class="grid-3" id="completed-trips-grid">
+          <div style="color:var(--text2)">No completed trips found.</div>
+        </div>
+      </div>
+</div>
+  <div class="modal-bg" id="edit-profile-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Edit Profile</h2><button class="modal-close" onclick="closeModal('edit-profile-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Full Name</label><input type="text" class="input" id="edit-name" value="Dev Parmar"></div>
+      <div class="input-group"><label class="label">Location</label><input type="text" class="input" id="edit-location" value="Location not set"></div>
+      <div class="input-group"><label class="label">Bio</label><textarea class="input" id="edit-bio" rows="3">Welcome to my travel profile!</textarea></div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="saveProfile()">Save Changes</button>
+    </div>
+  </div>
+  <div class="modal-bg" id="plan-trip-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Plan a New Trip</h2><button class="modal-close" onclick="closeModal('plan-trip-modal')">&times;</button></div>
+      <div class="input-group">
+        <label class="label">Trip Type</label>
+        <div class="trip-type-selector" style="margin-bottom:0">
+          <button class="btn trip-type-btn active" data-type="india" onclick="switchTripType('india')" type="button">India Trip</button>
+          <button class="btn trip-type-btn" data-type="intl" onclick="switchTripType('intl')" type="button">International Trip</button>
+        </div>
+      </div>
+      <div class="input-group"><label class="label">Trip Name</label><input type="text" class="input" placeholder="e.g. Summer Vacation"></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Start Date</label><input type="date" class="input"></div>
+        <div class="input-group"><label class="label">End Date</label><input type="date" class="input"></div>
+      </div>
+      <div class="input-group"><label class="label">Destination</label><input type="text" class="input" placeholder="e.g. Jaipur, Rajasthan"></div>
+      <div class="input-group"><label class="label">Budget (<span class="currency-symbol">₹</span>)</label><input type="number" class="input" placeholder="e.g. 15000"></div>
+      <div style="display:flex;gap:16px;margin-top:24px;">
+        <button class="btn btn-primary" style="flex:1" onclick="closeModal('plan-trip-modal'); window.location.href='create-trip.html'; showToast('Started planning trip')">Continue</button>
+        <button class="btn" style="flex:1;border:1px solid var(--border)" onclick="closeModal('plan-trip-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-item-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Item to Checklist</h2><button class="modal-close" onclick="closeModal('add-item-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Item Name</label><input type="text" class="input" id="new-item-name" placeholder="e.g. Sunglasses"></div>
+      <div class="input-group">
+        <label class="label">Category</label>
+        <select class="select" id="new-item-category">
+          <option>Documents</option><option>Clothing</option><option>Electronics</option><option>Health & Hygiene</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="addChecklistItem()">Add Item</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-note-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Trip Note</h2><button class="modal-close" onclick="closeModal('add-note-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Title</label><input type="text" class="input" id="note-title" placeholder="e.g. Hotel Check-in"></div>
+      <div class="input-group"><label class="label">Content</label><textarea class="input" id="note-content" rows="4" placeholder="Write your notes here..."></textarea></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Day / Date</label><input type="text" class="input" id="note-day" placeholder="e.g. Day 3"></div>
+        <div class="input-group"><label class="label">Stop / City</label><input type="text" class="input" id="note-city" placeholder="e.g. Jaipur"></div>
+      </div>
+      <button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="addNote()">Save Note</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/api.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    function formatDate(dateString) {
+      if (!dateString) return 'TBD';
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    }
+
+    function addPreference() {
+      const pref = prompt('Enter a new travel preference:');
+      if (pref) {
+        const container = document.querySelector('.card div[style*="flex-wrap"]');
+        if (container) {
+          const span = document.createElement('span');
+          span.className = 'badge badge-teal';
+          span.innerHTML = `${pref} <i class="fas fa-times" style="margin-left:6px; cursor:pointer; opacity:0.7" onclick="this.parentElement.remove(); showToast('Preference removed')"></i>`;
+          container.insertBefore(span, container.lastElementChild);
+          showToast('Preference added!');
+        }
+      }
+    }
+
+    function saveProfile() {
+      const name = document.getElementById('edit-name').value;
+      const location = document.getElementById('edit-location').value;
+      const bio = document.getElementById('edit-bio').value;
+      
+      const nameEl = document.querySelector('.profile-info h1');
+      const metaEl = document.querySelector('.profile-info p');
+      
+      if (nameEl) nameEl.innerText = name;
+      if (metaEl) metaEl.innerText = `dev@gmail.com · ${location}`;
+      
+      // Update avatar too!
+      const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+      const avatarEl = document.querySelector('.profile-avatar');
+      if (avatarEl) avatarEl.innerText = initials;
+      
+      closeModal('edit-profile-modal');
+      showToast('Profile updated successfully!');
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const response = await API.fetchData('profile');
+      if (response.success) {
+        const user = response.data;
+        document.querySelector('.profile-info h1').innerText = user.full_name;
+        document.querySelector('.profile-info p').innerText = `${user.email} · ${user.location || 'Location not set'}`;
+        
+        // Update avatar text
+        const initials = user.full_name.split(' ').map(n => n[0]).join('').toUpperCase();
+        document.querySelector('.profile-avatar').innerText = initials;
+        const topbarAvatar = document.querySelector('.avatar-circle');
+        if (topbarAvatar) topbarAvatar.innerText = initials;
+      } else {
+        console.error('Failed to load profile:', response.message);
+      }
+
+      // Load User's Real Trips
+      const tripsResponse = await API.fetchData('trips');
+      if (tripsResponse.success) {
+        const trips = tripsResponse.data;
+        const countEl = document.getElementById('profile-trip-count');
+        if (countEl) countEl.innerText = trips.length;
+        
+        // Count unique cities and countries
+        const uniqueCities = new Set();
+        const uniqueCountries = new Set();
+        
+        trips.forEach(trip => {
+          if (trip.destination) {
+            const parts = trip.destination.split(',').map(p => p.trim());
+            if (parts.length > 0) uniqueCities.add(parts[0]);
+            if (parts.length > 1) uniqueCountries.add(parts[parts.length - 1]);
+          }
+        });
+        
+        const countriesEl = document.getElementById('profile-countries-count');
+        const citiesEl = document.getElementById('profile-cities-count');
+        
+        if (countriesEl) countriesEl.innerText = uniqueCountries.size;
+        if (citiesEl) citiesEl.innerText = uniqueCities.size;
+
+        const upcomingGrid = document.getElementById('upcoming-trips-grid');
+        const completedGrid = document.getElementById('completed-trips-grid');
+
+        if (upcomingGrid) upcomingGrid.innerHTML = '';
+        if (completedGrid) completedGrid.innerHTML = '';
+
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        let upcomingCount = 0;
+        let completedCount = 0;
+
+        trips.forEach(trip => {
+          const startDate = new Date(trip.start_date);
+          startDate.setHours(0, 0, 0, 0);
+          const endDate = new Date(trip.end_date);
+          endDate.setHours(0, 0, 0, 0);
+          const card = document.createElement('div');
+          card.className = 'trip-card';
+          card.innerHTML = `
+            <div class="trip-card-img" style="background: linear-gradient(135deg, var(--primary), var(--accent2));"></div>
+            <div class="trip-card-body">
+              <div class="trip-card-name">${trip.trip_name}</div>
+              <div class="trip-card-meta">${formatDate(trip.start_date)} · <span class="badge badge-gray">${trip.status || 'Plan'}</span></div>
+              <div class="trip-card-meta"><i class="fas fa-map-marker-alt"></i> ${trip.destination}</div>
+              <button class="btn btn-sm btn-primary" onclick="viewTrip(${trip.id})" style="margin-top:8px">View</button>
+            </div>
+          `;
+
+          if (startDate > now) {
+            upcomingGrid.appendChild(card);
+            upcomingCount++;
+          } else {
+            completedGrid.appendChild(card);
+            completedCount++;
+          }
+        });
+
+        if (upcomingCount === 0 && upcomingGrid) {
+          upcomingGrid.innerHTML = '<div style="color:var(--text2)">No upcoming trips found.</div>';
+        }
+        if (completedCount === 0 && completedGrid) {
+          completedGrid.innerHTML = '<div style="color:var(--text2)">No completed trips found.</div>';
+        }
+      }
+    });
+
+    function viewTrip(id) {
+      localStorage.setItem('currentTripId', id);
+      window.location.href = 'itinerary.html';
+    }
+  </script>
+</body>
+</html>

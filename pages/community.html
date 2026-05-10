@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Community</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="logged-in">
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Global Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">Traveloop <div class="dot"></div></div>
+    <div class="topbar-center">
+      <i class="fas fa-search"></i>
+      <input type="text" class="topbar-search" placeholder="Search trips, activities, cities...">
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+      <button class="btn-icon"><i class="fas fa-filter"></i></button>
+      <button class="btn-icon"><i class="fas fa-sort"></i></button>
+      <div class="avatar-circle">AM</div>
+    </div>
+  </div>
+
+  <!-- Global Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Main</div>
+      <a class="sidebar-link " href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+      <a class="sidebar-link " href="trips.html"><i class="fas fa-map-marked-alt"></i> My Trips <span class="badge badge-accent" style="background:var(--accent);color:white;margin-left:auto">3</span></a>
+      <a class="sidebar-link " href="create-trip.html"><i class="fas fa-plus-circle"></i> Plan a Trip</a>
+      <a class="sidebar-link " href="itinerary.html"><i class="fas fa-calendar-alt"></i> Itinerary</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tools</div>
+      <a class="sidebar-link " href="search.html"><i class="fas fa-search"></i> Activity Search</a>
+      <a class="sidebar-link " href="checklist.html"><i class="fas fa-check-square"></i> Packing List</a>
+      <a class="sidebar-link " href="notes.html"><i class="fas fa-sticky-note"></i> Trip Notes</a>
+      <a class="sidebar-link " href="budget.html"><i class="fas fa-file-invoice-dollar"></i> Expenses</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Discover</div>
+      <a class="sidebar-link active" href="community.html"><i class="fas fa-users"></i> Community</a>
+      <a class="sidebar-link " href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Admin</div>
+      <a class="sidebar-link " href="admin.html"><i class="fas fa-cog"></i> Admin Panel</a>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-nav">
+    <a class="" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="" href="trips.html"><i class="fas fa-map-marked-alt"></i> Trips</a>
+    <a class="" href="checklist.html"><i class="fas fa-check-square"></i> Packing</a>
+    <a class="active" href="community.html"><i class="fas fa-users"></i> Community</a>
+    <a class="" href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+  </div>
+<div class="main">
+<div class="screen-header"><h1>Community</h1><button class="btn btn-accent" onclick="showModal('write-post-modal')"><i class="fas fa-pen"></i> Write a Post</button></div>
+      <div class="grid-2 trip-mode india-mode">
+        <div class="community-card">
+          <div class="community-header"><div class="community-avatar" style="background-color: var(--accent);">MR</div><div><div class="community-author">Mrudul Mistri <i class="fas fa-check-circle" style="color:var(--teal);font-size:0.875rem"></i></div><div style="font-size:0.875rem; color:var(--text3)">2 days ago</div></div></div>
+          <div class="community-content">The sunset at the Rann of Kutch is simply breathtaking! The white salt desert stretching to infinity is a must-see. Highly recommend visiting during the Rann Utsav. 🏜️✨</div>
+          <div style="margin-bottom:16px"><span class="badge badge-gray">India</span><span class="badge badge-gray">Rajasthan</span><span class="badge badge-gray">Solo</span></div>
+          <div class="community-footer">
+            <div class="community-actions">
+              <div class="community-action" onclick="likePost(this)"><i class="far fa-heart"></i> <span>142</span></div>
+              <div class="community-action"><i class="far fa-comment"></i> 28</div>
+            </div>
+            <div class="community-action"><i class="far fa-bookmark"></i></div>
+          </div>
+        </div>
+        <div class="community-card">
+          <div class="community-header"><div class="community-avatar" style="background-color: var(--teal);">YZ</div><div><div class="community-author">Yuvraj Zende <i class="fas fa-check-circle" style="color:var(--teal);font-size:0.875rem"></i></div><div style="font-size:0.875rem; color:var(--text3)">5 days ago</div></div></div>
+          <div class="community-content">Goa during monsoon is a completely different vibe! Lush green, fewer crowds, and stunning waterfalls. Don't skip Dudhsagar trek! 🌴🌧️</div>
+          <div style="margin-bottom:16px"><span class="badge badge-gray">India</span><span class="badge badge-gray">Goa</span><span class="badge badge-gray">Adventure</span></div>
+          <div class="community-footer">
+            <div class="community-actions">
+              <div class="community-action" onclick="likePost(this)"><i class="far fa-heart"></i> <span>89</span></div>
+              <div class="community-action"><i class="far fa-comment"></i> 15</div>
+            </div>
+            <div class="community-action"><i class="far fa-bookmark"></i></div>
+          </div>
+        </div>
+        <div class="community-card">
+          <div class="community-header"><div class="community-avatar" style="background-color: var(--primary);">SK</div><div><div class="community-author">Sakthi K <i class="fas fa-check-circle" style="color:var(--teal);font-size:0.875rem"></i></div><div style="font-size:0.875rem; color:var(--text3)">1 week ago</div></div></div>
+          <div class="community-content">Just finished a 5-day food trail in Kerala. From appam with stew to karimeen pollichathu, every meal was a 10/10. God's own country indeed! 🍛🛶</div>
+          <div style="margin-bottom:16px"><span class="badge badge-gray">Kerala</span><span class="badge badge-gray">Food</span></div>
+          <div class="community-footer">
+            <div class="community-actions">
+              <div class="community-action" onclick="likePost(this)"><i class="far fa-heart"></i> <span>214</span></div>
+              <div class="community-action"><i class="far fa-comment"></i> 41</div>
+            </div>
+            <div class="community-action"><i class="far fa-bookmark"></i></div>
+          </div>
+        </div>
+        <div class="community-card">
+          <div class="community-header"><div class="community-avatar" style="background-color: var(--accent2);">HS</div><div><div class="community-author">Heshinth S <i class="fas fa-check-circle" style="color:var(--teal);font-size:0.875rem"></i></div><div style="font-size:0.875rem; color:var(--text3)">2 weeks ago</div></div></div>
+          <div class="community-content">Ladakh on a ₹18k budget for a whole week. It's totally doable! Stayed in homestays, ate local thukpa, and shared cabs. Best experience ever. 🏔️🎒</div>
+          <div style="margin-bottom:16px"><span class="badge badge-gray">Ladakh</span><span class="badge badge-gray">Budget Travel</span></div>
+          <div class="community-footer">
+            <div class="community-actions">
+              <div class="community-action" onclick="likePost(this)"><i class="far fa-heart"></i> <span>376</span></div>
+              <div class="community-action"><i class="far fa-comment"></i> 92</div>
+            </div>
+            <div class="community-action"><i class="far fa-bookmark"></i></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid-2 trip-mode intl-mode" style="display:none;">
+        <div class="community-card">
+          <div class="community-header"><div class="community-avatar" style="background-color: var(--accent);">MR</div><div><div class="community-author">Mrudul Mistri <i class="fas fa-check-circle" style="color:var(--teal);font-size:0.875rem"></i></div><div style="font-size:0.875rem; color:var(--text3)">2 days ago</div></div></div>
+          <div class="community-content">Paragliding in Interlaken was simply breathtaking! Highly recommend doing it early morning. 🪂🏔️</div>
+          <div style="margin-bottom:16px"><span class="badge badge-gray">Switzerland</span><span class="badge badge-gray">Adventure</span></div>
+          <div class="community-footer">
+            <div class="community-actions">
+              <div class="community-action" onclick="likePost(this)"><i class="far fa-heart"></i> <span>142</span></div>
+              <div class="community-action"><i class="far fa-comment"></i> 28</div>
+            </div>
+            <div class="community-action"><i class="far fa-bookmark"></i></div>
+          </div>
+        </div>
+        <div class="community-card">
+          <div class="community-header"><div class="community-avatar" style="background-color: var(--teal);">YZ</div><div><div class="community-author">Yuvraj Zende <i class="fas fa-check-circle" style="color:var(--teal);font-size:0.875rem"></i></div><div style="font-size:0.875rem; color:var(--text3)">5 days ago</div></div></div>
+          <div class="community-content">Rome in June is quite warm but absolutely magical. Don't skip the Vatican Museum! 🏛️🍕</div>
+          <div style="margin-bottom:16px"><span class="badge badge-gray">Italy</span><span class="badge badge-gray">Rome</span></div>
+          <div class="community-footer">
+            <div class="community-actions">
+              <div class="community-action" onclick="likePost(this)"><i class="far fa-heart"></i> <span>89</span></div>
+              <div class="community-action"><i class="far fa-comment"></i> 15</div>
+            </div>
+            <div class="community-action"><i class="far fa-bookmark"></i></div>
+          </div>
+        </div>
+      </div>
+</div>
+  <div class="modal-bg" id="plan-trip-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Plan a New Trip</h2><button class="modal-close" onclick="closeModal('plan-trip-modal')">&times;</button></div>
+      <div class="input-group">
+        <label class="label">Trip Type</label>
+        <div class="trip-type-selector" style="margin-bottom:0">
+          <button class="btn trip-type-btn active" data-type="india" onclick="switchTripType('india')" type="button">India Trip</button>
+          <button class="btn trip-type-btn" data-type="intl" onclick="switchTripType('intl')" type="button">International Trip</button>
+        </div>
+      </div>
+      <div class="input-group"><label class="label">Trip Name</label><input type="text" class="input" placeholder="e.g. Summer Vacation"></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Start Date</label><input type="date" class="input"></div>
+        <div class="input-group"><label class="label">End Date</label><input type="date" class="input"></div>
+      </div>
+      <div class="input-group"><label class="label">Destination</label><input type="text" class="input" placeholder="e.g. Jaipur, Rajasthan"></div>
+      <div class="input-group"><label class="label">Budget (<span class="currency-symbol">₹</span>)</label><input type="number" class="input" placeholder="e.g. 15000"></div>
+      <div style="display:flex;gap:16px;margin-top:24px;">
+        <button class="btn btn-primary" style="flex:1" onclick="closeModal('plan-trip-modal'); window.location.href='create-trip.html'; showToast('Started planning trip')">Continue</button>
+        <button class="btn" style="flex:1;border:1px solid var(--border)" onclick="closeModal('plan-trip-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-item-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Item to Checklist</h2><button class="modal-close" onclick="closeModal('add-item-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Item Name</label><input type="text" class="input" id="new-item-name" placeholder="e.g. Sunglasses"></div>
+      <div class="input-group">
+        <label class="label">Category</label>
+        <select class="select" id="new-item-category">
+          <option>Documents</option><option>Clothing</option><option>Electronics</option><option>Health & Hygiene</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="addChecklistItem()">Add Item</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-note-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Trip Note</h2><button class="modal-close" onclick="closeModal('add-note-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Title</label><input type="text" class="input" id="note-title" placeholder="e.g. Hotel Check-in"></div>
+      <div class="input-group"><label class="label">Content</label><textarea class="input" id="note-content" rows="4" placeholder="Write your notes here..."></textarea></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Day / Date</label><input type="text" class="input" id="note-day" placeholder="e.g. Day 3"></div>
+        <div class="input-group"><label class="label">Stop / City</label><input type="text" class="input" id="note-city" placeholder="e.g. Jaipur"></div>
+      </div>
+      <button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="addNote()">Save Note</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="write-post-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Write a Community Post</h2><button class="modal-close" onclick="closeModal('write-post-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Content</label><textarea class="input" id="post-content" rows="4" placeholder="Share your experience..."></textarea></div>
+      <div class="input-group"><label class="label">Tags (comma separated)</label><input type="text" class="input" id="post-tags" placeholder="e.g. India, Goa, Adventure"></div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="createPost()">Post</button>
+    </div>
+  </div>
+
+  <script>
+    function createPost() {
+      const content = document.getElementById('post-content').value;
+      const tags = document.getElementById('post-tags').value;
+      const user = JSON.parse(localStorage.getItem('user')) || { full_name: 'Me' };
+      
+      if (!content) {
+        alert('Please enter some content!');
+        return;
+      }
+      
+      const container = document.querySelector('.grid-2.trip-mode.india-mode'); // Add to India mode grid for now
+      if (container) {
+        const div = document.createElement('div');
+        div.className = 'community-card';
+        div.innerHTML = `
+          <div class="community-header">
+            <div class="community-avatar" style="background-color: var(--primary);">${user.full_name.split(' ').map(n => n[0]).join('').toUpperCase()}</div>
+            <div>
+              <div class="community-author">${user.full_name} <i class="fas fa-check-circle" style="color:var(--teal);font-size:0.875rem"></i></div>
+              <div style="font-size:0.875rem; color:var(--text3)">Just now</div>
+            </div>
+          </div>
+          <div class="community-content">${content}</div>
+          <div style="margin-bottom:16px">
+            ${tags.split(',').map(tag => `<span class="badge badge-gray">${tag.trim()}</span>`).join('')}
+          </div>
+          <div class="community-footer">
+            <div class="community-actions">
+              <div class="community-action" onclick="likePost(this)"><i class="far fa-heart"></i> <span>0</span></div>
+              <div class="community-action"><i class="far fa-comment"></i> 0</div>
+            </div>
+            <div class="community-action"><i class="far fa-bookmark"></i></div>
+          </div>
+        `;
+        container.insertBefore(div, container.firstChild); // Add to top!
+        closeModal('write-post-modal');
+        showToast('Post created successfully!');
+      }
+    }
+
+    function likePost(el) {
+      const icon = el.querySelector('i');
+      const span = el.querySelector('span');
+      let count = parseInt(span.innerText);
+      
+      if (icon.classList.contains('far')) {
+        icon.classList.remove('far');
+        icon.classList.add('fas');
+        icon.style.color = 'var(--accent)';
+        span.innerText = count + 1;
+      } else {
+        icon.classList.remove('fas');
+        icon.classList.add('far');
+        icon.style.color = '';
+        span.innerText = count - 1;
+      }
+    }
+  </script>
+
+  <!-- JavaScript -->
+  <script src="../js/main.js"></script>
+</body>
+</html>

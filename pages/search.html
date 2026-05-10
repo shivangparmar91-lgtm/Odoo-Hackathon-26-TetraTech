@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Search</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="logged-in">
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Global Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">Traveloop <div class="dot"></div></div>
+    <div class="topbar-center">
+      <i class="fas fa-search"></i>
+      <input type="text" class="topbar-search" placeholder="Search trips, activities, cities...">
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+      <button class="btn-icon"><i class="fas fa-filter"></i></button>
+      <button class="btn-icon"><i class="fas fa-sort"></i></button>
+      <div class="avatar-circle">AM</div>
+    </div>
+  </div>
+
+  <!-- Global Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Main</div>
+      <a class="sidebar-link " href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+      <a class="sidebar-link " href="trips.html"><i class="fas fa-map-marked-alt"></i> My Trips <span class="badge badge-accent" style="background:var(--accent);color:white;margin-left:auto">3</span></a>
+      <a class="sidebar-link " href="create-trip.html"><i class="fas fa-plus-circle"></i> Plan a Trip</a>
+      <a class="sidebar-link " href="itinerary.html"><i class="fas fa-calendar-alt"></i> Itinerary</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tools</div>
+      <a class="sidebar-link active" href="search.html"><i class="fas fa-search"></i> Activity Search</a>
+      <a class="sidebar-link " href="checklist.html"><i class="fas fa-check-square"></i> Packing List</a>
+      <a class="sidebar-link " href="notes.html"><i class="fas fa-sticky-note"></i> Trip Notes</a>
+      <a class="sidebar-link " href="budget.html"><i class="fas fa-file-invoice-dollar"></i> Expenses</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Discover</div>
+      <a class="sidebar-link " href="community.html"><i class="fas fa-users"></i> Community</a>
+      <a class="sidebar-link " href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Admin</div>
+      <a class="sidebar-link " href="admin.html"><i class="fas fa-cog"></i> Admin Panel</a>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-nav">
+    <a class="" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="" href="trips.html"><i class="fas fa-map-marked-alt"></i> Trips</a>
+    <a class="" href="checklist.html"><i class="fas fa-check-square"></i> Packing</a>
+    <a class="" href="community.html"><i class="fas fa-users"></i> Community</a>
+    <a class="" href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+  </div>
+<div class="main">
+<div class="screen-header"><h1>Activity Search</h1></div>
+      <div class="card" style="margin-bottom: 24px;">
+        <div style="display:flex; gap:16px; margin-bottom:24px;">
+          <input type="text" class="input" placeholder="Search for activities..." style="flex:1" id="search-input" value="Adventure">
+          <select class="select" style="width: 200px;" id="category-select" onchange="runSearch()"><option>All Categories</option><option>Adventure</option><option>Culture</option></select>
+          <button class="btn btn-primary" onclick="runSearch()">Search</button>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; margin-bottom:16px" class="trip-mode india-mode">
+          <span class="chip active">River Rafting</span><span class="chip">Camel Safari</span><span class="chip">Trekking</span>
+          <span class="chip">Scuba Diving</span><span class="chip">Houseboat</span><span class="chip">Paragliding</span>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; margin-bottom:16px; display:none;" class="trip-mode intl-mode">
+          <span class="chip active">Paragliding</span><span class="chip">Hiking</span><span class="chip">Food Tour</span>
+          <span class="chip">Museum</span><span class="chip">Beach</span><span class="chip">Cycling</span>
+        </div>
+        <div id="search-result-label" style="font-weight:bold; color:var(--primary)">Showing 7 results for "Adventure"</div>
+      </div>
+      <div id="search-results-container"></div>
+</div>
+  <div class="modal-bg" id="plan-trip-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Plan a New Trip</h2><button class="modal-close" onclick="closeModal('plan-trip-modal')">&times;</button></div>
+      <div class="input-group">
+        <label class="label">Trip Type</label>
+        <div class="trip-type-selector" style="margin-bottom:0">
+          <button class="btn trip-type-btn active" data-type="india" onclick="switchTripType('india')" type="button">India Trip</button>
+          <button class="btn trip-type-btn" data-type="intl" onclick="switchTripType('intl')" type="button">International Trip</button>
+        </div>
+      </div>
+      <div class="input-group"><label class="label">Trip Name</label><input type="text" class="input" placeholder="e.g. Summer Vacation"></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Start Date</label><input type="date" class="input"></div>
+        <div class="input-group"><label class="label">End Date</label><input type="date" class="input"></div>
+      </div>
+      <div class="input-group"><label class="label">Destination</label><input type="text" class="input" placeholder="e.g. Jaipur, Rajasthan"></div>
+      <div class="input-group"><label class="label">Budget (<span class="currency-symbol">₹</span>)</label><input type="number" class="input" placeholder="e.g. 15000"></div>
+      <div style="display:flex;gap:16px;margin-top:24px;">
+        <button class="btn btn-primary" style="flex:1" onclick="closeModal('plan-trip-modal'); window.location.href='create-trip.html'; showToast('Started planning trip')">Continue</button>
+        <button class="btn" style="flex:1;border:1px solid var(--border)" onclick="closeModal('plan-trip-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-item-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Item to Checklist</h2><button class="modal-close" onclick="closeModal('add-item-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Item Name</label><input type="text" class="input" id="new-item-name" placeholder="e.g. Sunglasses"></div>
+      <div class="input-group">
+        <label class="label">Category</label>
+        <select class="select" id="new-item-category">
+          <option>Documents</option><option>Clothing</option><option>Electronics</option><option>Health & Hygiene</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="addChecklistItem()">Add Item</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-note-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Trip Note</h2><button class="modal-close" onclick="closeModal('add-note-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Title</label><input type="text" class="input" id="note-title" placeholder="e.g. Hotel Check-in"></div>
+      <div class="input-group"><label class="label">Content</label><textarea class="input" id="note-content" rows="4" placeholder="Write your notes here..."></textarea></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Day / Date</label><input type="text" class="input" id="note-day" placeholder="e.g. Day 3"></div>
+        <div class="input-group"><label class="label">Stop / City</label><input type="text" class="input" id="note-city" placeholder="e.g. Jaipur"></div>
+      </div>
+      <button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="addNote()">Save Note</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/main.js"></script>
+  <script>
+    const activitiesData = [
+      { name: 'River Rafting', city: 'Rishikesh / Goa', cost: '₹1,500', desc: 'Experience the thrill of white water rafting in rapid rivers.', category: 'Adventure' },
+      { name: 'Camel Safari', city: 'Jaisalmer / Jaipur', cost: '₹1,200', desc: 'Ride through the golden sands of the desert on a camel.', category: 'Adventure' },
+      { name: 'Trekking', city: 'Manali / Leh', cost: '₹2,500', desc: 'Trek through the beautiful and challenging mountain trails.', category: 'Adventure' },
+      { name: 'Scuba Diving', city: 'Goa / Andaman', cost: '₹3,500', desc: 'Explore the vibrant underwater marine life.', category: 'Adventure' },
+      { name: 'Houseboat', city: 'Kerala', cost: '₹5,000', desc: 'Relax on a luxury houseboat in the serene backwaters.', category: 'Culture' },
+      { name: 'Paragliding', city: 'Bir Billing / Manali', cost: '₹3,000', desc: 'Fly like a bird and enjoy panoramic mountain views.', category: 'Adventure' },
+      { name: 'Hiking', city: 'Western Ghats / Himalayas', cost: '₹1,000', desc: 'Walk through beautiful trails and nature.', category: 'Adventure' },
+      { name: 'Food Tour', city: 'Delhi / Mumbai', cost: '₹800', desc: 'Taste the best local street food and delicacies.', category: 'Culture' },
+      { name: 'Museum Visit', city: 'Delhi / Jaipur', cost: '₹300', desc: 'Explore the rich history and art of the region.', category: 'Culture' },
+      { name: 'Beach Relaxing', city: 'Goa / Kerala', cost: '₹0', desc: 'Chill by the beach and watch the sunset.', category: 'Culture' },
+      { name: 'Cycling Tour', city: 'Udaipur / Pondicherry', cost: '₹500', desc: 'Explore the city on two wheels.', category: 'Adventure' },
+      { name: 'Skiing', city: 'Gulmarg / Auli', cost: '₹5,000', desc: 'Slide down the snow-covered slopes.', category: 'Adventure' },
+      { name: 'Gondola Ride', city: 'Gulmarg', cost: '₹1,500', desc: 'Enjoy the scenic cable car ride in the mountains.', category: 'Adventure' },
+      { name: 'Shikara Ride', city: 'Srinagar', cost: '₹1,000', desc: 'Relax on a traditional wooden boat on Dal Lake.', category: 'Culture' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add click listeners to chips
+      const chips = document.querySelectorAll('.chip');
+      chips.forEach(chip => {
+        chip.addEventListener('click', (e) => {
+          chips.forEach(c => c.classList.remove('active'));
+          e.target.classList.add('active');
+          
+          const query = e.target.innerText;
+          const input = document.getElementById('search-input');
+          if (input) input.value = query;
+          
+          runSearch(query);
+        });
+      });
+
+      // Run initial search for default active chip
+      const activeChip = document.querySelector('.chip.active');
+      if (activeChip) {
+        runSearch(activeChip.innerText);
+      }
+    });
+
+    function runSearch(query = '') {
+      const input = document.getElementById('search-input');
+      const searchTerm = query || (input ? input.value : '');
+      
+      const categorySelect = document.getElementById('category-select');
+      const selectedCategory = categorySelect ? categorySelect.value : 'All Categories';
+      
+      const resultsContainer = document.getElementById('search-results-container');
+      if (!resultsContainer) return;
+      
+      resultsContainer.innerHTML = '';
+      
+      const filtered = activitiesData.filter(act => {
+        const matchesSearch = act.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                              act.city.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory = selectedCategory === 'All Categories' || act.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+      });
+      
+      const label = document.getElementById('search-result-label');
+      if (label) label.innerText = `Showing ${filtered.length} results for "${searchTerm}"`;
+      
+      filtered.forEach(act => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.style.marginBottom = '16px';
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div>
+              <h3 class="card-title">${act.name}</h3>
+              <p style="color:var(--text2); margin-bottom: 4px;">${act.city}</p>
+              <p style="font-size: 0.875rem;">${act.desc}</p>
+            </div>
+            <div style="font-weight:bold; color:var(--accent); font-size: 1.125rem;">${act.cost}</div>
+          </div>
+        `;
+        resultsContainer.appendChild(div);
+      });
+
+      if (filtered.length === 0) {
+        resultsContainer.innerHTML = '<div style="text-align:center; color:var(--text2); padding: 20px;">No activities found for this search.</div>';
+      }
+    }
+  </script>
+</body>
+</html>

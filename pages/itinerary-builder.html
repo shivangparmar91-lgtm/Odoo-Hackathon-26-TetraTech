@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Itinerary Builder</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/typography.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/screens/itinerary.css"><link rel="stylesheet" href="../libs/leaflet/leaflet.min.css">
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-left">
+      Traveloop <div class="dot"></div>
+    </div>
+    <div class="topbar-center">
+      <i class="fas fa-search"></i>
+      <input type="text" class="topbar-search" placeholder="Search trips, activities, cities...">
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+      <button class="btn-icon"><i class="fas fa-filter"></i></button>
+      <button class="btn-icon"><i class="fas fa-sort"></i></button>
+      <div class="avatar-circle">AM</div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Main</div>
+      <a href="dashboard.html" class="sidebar-link "><i class="fas fa-home"></i> Home</a>
+      <a href="trips.html" class="sidebar-link "><i class="fas fa-map-marked-alt"></i> My Trips <span class="badge badge-accent" style="background:var(--accent);color:white;margin-left:auto">3</span></a>
+      <a href="create-trip.html" class="sidebar-link "><i class="fas fa-plus-circle"></i> Plan a Trip</a>
+      <a href="itinerary-builder.html" class="sidebar-link active"><i class="fas fa-calendar-alt"></i> Itinerary</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tools</div>
+      <a href="activity-search.html" class="sidebar-link "><i class="fas fa-search"></i> Activity Search</a>
+      <a href="checklist.html" class="sidebar-link "><i class="fas fa-check-square"></i> Packing List</a>
+      <a href="notes.html" class="sidebar-link "><i class="fas fa-sticky-note"></i> Trip Notes</a>
+      <a href="budget.html" class="sidebar-link "><i class="fas fa-file-invoice-dollar"></i> Expenses</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Discover</div>
+      <a href="community.html" class="sidebar-link "><i class="fas fa-users"></i> Community</a>
+      <a href="profile.html" class="sidebar-link "><i class="fas fa-user-circle"></i> Profile</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Admin</div>
+      <a href="admin.html" class="sidebar-link "><i class="fas fa-cog"></i> Admin Panel</a>
+    </div>
+  </div>
+
+  <div class="mobile-nav">
+    <a href="dashboard.html" class=""><i class="fas fa-home"></i> Home</a>
+    <a href="trips.html" class=""><i class="fas fa-map-marked-alt"></i> Trips</a>
+    <a href="checklist.html" class=""><i class="fas fa-check-square"></i> Packing</a>
+    <a href="community.html" class=""><i class="fas fa-users"></i> Community</a>
+    <a href="profile.html" class=""><i class="fas fa-user-circle"></i> Profile</a>
+  </div>
+
+  <div class="main">
+    <div id="screen" class="screen visible">
+
+      <div class="screen-header" style="margin-bottom:8px">
+        <h1>Itinerary</h1>
+        <div>
+          <button class="btn btn-primary btn-sm">+ Add Section</button>
+          <a href="budget.html" class="btn btn-accent btn-sm">View Budget</a>
+        </div>
+      </div>
+      <p style="color:var(--text2); margin-bottom:24px">Paris & Rome Adventure · Jun 15-26</p>
+      
+      <div class="itinerary-toolbar">
+        <span class="badge badge-amber">Physical & Cultural</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom: 24px;">Build Itinerary</h3>
+          
+          <div style="border-left: 2px solid var(--border); padding-left: 24px; margin-left: 12px;">
+            <div style="position:relative; margin-bottom: 32px;">
+              <div style="position:absolute; left:-31px; top:0; width:16px; height:16px; border-radius:50%; background:var(--accent);"></div>
+              <div style="font-weight:bold; font-size:1.125rem">Section 1: Paris Stay</div>
+              <div style="color:var(--text2); font-size:0.875rem; margin-bottom:8px">hotel + tours — Jun 15-19</div>
+              <div class="badge badge-teal" style="background:rgba(22,199,154,0.1); color:var(--teal)">Budget $9,000</div>
+            </div>
+            
+            <div style="position:relative; margin-bottom: 32px;">
+              <div style="position:absolute; left:-31px; top:0; width:16px; height:16px; border-radius:50%; background:var(--accent2);"></div>
+              <div style="font-weight:bold; font-size:1.125rem">Section 2: Travel to Rome</div>
+              <div style="color:var(--text2); font-size:0.875rem; margin-bottom:8px">flight + train — Jun 19-20</div>
+              <div class="badge badge-teal" style="background:rgba(22,199,154,0.1); color:var(--teal)">Budget $12,000</div>
+            </div>
+
+            <div style="position:relative; margin-bottom: 16px;">
+              <div style="position:absolute; left:-31px; top:0; width:16px; height:16px; border-radius:50%; background:var(--primary);"></div>
+              <div style="font-weight:bold; font-size:1.125rem">Section 3: Rome Stay</div>
+              <div style="color:var(--text2); font-size:0.875rem; margin-bottom:8px">hotel + Vatican + Colosseum — Jun 20-26</div>
+              <div class="badge badge-teal" style="background:rgba(22,199,154,0.1); color:var(--teal)">Budget $1,000</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom: 24px;">Day-by-Day View</h3>
+          
+          <div class="day-block">
+            <div class="day-label">Day 1 Jun 15</div>
+            <div class="itinerary-item">
+              <div class="itinerary-time">09:00</div>
+              <div class="itinerary-content">
+                <h4>Flight DEL→PAR</h4>
+              </div>
+              <div class="itinerary-budget">$3,000</div>
+            </div>
+            <div class="itinerary-item">
+              <div class="itinerary-time">19:30</div>
+              <div class="itinerary-content">
+                <h4>Hotel Check-in</h4>
+              </div>
+              <div class="itinerary-budget">$900/n</div>
+            </div>
+          </div>
+
+          <div class="day-block">
+            <div class="day-label">Day 2 Jun 16</div>
+            <div class="itinerary-item">
+              <div class="itinerary-time">09:00</div>
+              <div class="itinerary-content">
+                <h4>Eiffel Tower</h4>
+              </div>
+              <div class="itinerary-budget">$120</div>
+            </div>
+            <div class="itinerary-item">
+              <div class="itinerary-time">14:00</div>
+              <div class="itinerary-content">
+                <h4>Louvre</h4>
+              </div>
+              <div class="itinerary-budget">$80</div>
+            </div>
+            <div class="itinerary-item">
+              <div class="itinerary-time">20:00</div>
+              <div class="itinerary-content">
+                <h4>Seine Cruise</h4>
+              </div>
+              <div class="itinerary-budget">$200</div>
+            </div>
+          </div>
+
+          <div class="day-block">
+            <div class="day-label">Day 3 Jun 17</div>
+            <div class="itinerary-item">
+              <div class="itinerary-time">10:00</div>
+              <div class="itinerary-content">
+                <h4>Versailles</h4>
+              </div>
+              <div class="itinerary-budget">$150</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+        
+    </div>
+  </div>
+
+  <div class="modal-bg" id="plan-trip-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Plan a New Trip</h2>
+        <button class="modal-close" onclick="closeModal('plan-trip-modal')">&times;</button>
+      </div>
+      <div class="input-group">
+        <label class="label">Trip Name</label>
+        <input type="text" class="input" placeholder="e.g. Summer in Europe">
+      </div>
+      <div class="form-grid">
+        <div class="input-group">
+          <label class="label">Start Date</label>
+          <input type="date" class="input">
+        </div>
+        <div class="input-group">
+          <label class="label">End Date</label>
+          <input type="date" class="input">
+        </div>
+      </div>
+      <div class="input-group">
+        <label class="label">Destination</label>
+        <input type="text" class="input" placeholder="e.g. Paris, France">
+      </div>
+      <div class="input-group">
+        <label class="label">Budget ($)</label>
+        <input type="number" class="input" placeholder="e.g. 5000">
+      </div>
+      <div style="display:flex;gap:16px;margin-top:24px;">
+        <a href="create-trip.html" class="btn btn-primary" style="flex:1;text-align:center">Continue</a>
+        <button class="btn" style="flex:1;border:1px solid var(--border)" onclick="closeModal('plan-trip-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-item-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Add Item to Checklist</h2>
+        <button class="modal-close" onclick="closeModal('add-item-modal')">&times;</button>
+      </div>
+      <div class="input-group">
+        <label class="label">Item Name</label>
+        <input type="text" class="input" id="new-item-name" placeholder="e.g. Sunglasses">
+      </div>
+      <div class="input-group">
+        <label class="label">Category</label>
+        <select class="select" id="new-item-category">
+          <option>Documents</option>
+          <option>Clothing</option>
+          <option>Electronics</option>
+          <option>Health & Hygiene</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="addChecklistItem()">Add Item</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-note-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Add Trip Note</h2>
+        <button class="modal-close" onclick="closeModal('add-note-modal')">&times;</button>
+      </div>
+      <div class="input-group">
+        <label class="label">Title</label>
+        <input type="text" class="input" id="note-title" placeholder="e.g. Hotel Check-in">
+      </div>
+      <div class="input-group">
+        <label class="label">Content</label>
+        <textarea class="input" id="note-content" rows="4" placeholder="Write your notes here..."></textarea>
+      </div>
+      <div class="form-grid">
+        <div class="input-group">
+          <label class="label">Day / Date</label>
+          <input type="text" class="input" id="note-day" placeholder="e.g. Day 3">
+        </div>
+        <div class="input-group">
+          <label class="label">Stop / City</label>
+          <input type="text" class="input" id="note-city" placeholder="e.g. Rome">
+        </div>
+      </div>
+      <button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="addNote()">Save Note</button>
+    </div>
+  </div>
+
+  <script src="../libs/leaflet/leaflet.min.js"></script>
+  <script src="../js/utils/modal.js"></script>
+  <script src="../js/utils/toast.js"></script>
+  <script src="../js/utils/format.js"></script>
+  <script src="../js/utils/storage.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/router.js"></script>
+  <script src="../js/modules/itinerary.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

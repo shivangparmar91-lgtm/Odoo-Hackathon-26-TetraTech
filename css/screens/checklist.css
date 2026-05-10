@@ -1,0 +1,42 @@
+.checklist-group {
+  margin-bottom: 24px;
+}
+.checklist-group-header {
+  font-weight: bold;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--primary);
+}
+.checklist-items {
+  background-color: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.check-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.check-item:last-child {
+  border-bottom: none;
+}
+.check-item:hover {
+  background-color: var(--surface2);
+}
+.check-box {
+  color: var(--text3);
+  margin-right: 12px;
+  font-size: 1.25rem;
+}
+.check-item.checked {
+  color: var(--text3);
+  text-decoration: line-through;
+}
+.check-item.checked .check-box {
+  color: var(--teal);
+}

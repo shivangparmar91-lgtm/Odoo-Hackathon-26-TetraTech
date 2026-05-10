@@ -1,0 +1,44 @@
+.itinerary-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.day-block {
+  margin-bottom: 24px;
+}
+.day-label {
+  font-weight: bold;
+  font-family: var(--font-heading);
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+.itinerary-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background-color: var(--surface2);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+}
+.itinerary-time {
+  font-family: var(--font-mono);
+  font-weight: bold;
+  color: var(--accent);
+  width: 60px;
+  flex-shrink: 0;
+}
+.itinerary-content {
+  flex: 1;
+}
+.itinerary-content h4 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+.itinerary-content p {
+  font-size: 0.875rem;
+}
+.itinerary-budget {
+  font-weight: bold;
+  color: var(--teal);
+}

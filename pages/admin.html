@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="logged-in">
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Global Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">Traveloop <div class="dot"></div></div>
+    <div class="topbar-center">
+      <i class="fas fa-search"></i>
+      <input type="text" class="topbar-search" placeholder="Search trips, activities, cities...">
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+      <button class="btn-icon"><i class="fas fa-filter"></i></button>
+      <button class="btn-icon"><i class="fas fa-sort"></i></button>
+      <div class="avatar-circle">AM</div>
+    </div>
+  </div>
+
+  <!-- Global Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Main</div>
+      <a class="sidebar-link " href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+      <a class="sidebar-link " href="trips.html"><i class="fas fa-map-marked-alt"></i> My Trips <span class="badge badge-accent" style="background:var(--accent);color:white;margin-left:auto">3</span></a>
+      <a class="sidebar-link " href="create-trip.html"><i class="fas fa-plus-circle"></i> Plan a Trip</a>
+      <a class="sidebar-link " href="itinerary.html"><i class="fas fa-calendar-alt"></i> Itinerary</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tools</div>
+      <a class="sidebar-link " href="search.html"><i class="fas fa-search"></i> Activity Search</a>
+      <a class="sidebar-link " href="checklist.html"><i class="fas fa-check-square"></i> Packing List</a>
+      <a class="sidebar-link " href="notes.html"><i class="fas fa-sticky-note"></i> Trip Notes</a>
+      <a class="sidebar-link " href="budget.html"><i class="fas fa-file-invoice-dollar"></i> Expenses</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Discover</div>
+      <a class="sidebar-link " href="community.html"><i class="fas fa-users"></i> Community</a>
+      <a class="sidebar-link " href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Admin</div>
+      <a class="sidebar-link active" href="admin.html"><i class="fas fa-cog"></i> Admin Panel</a>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-nav">
+    <a class="" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="" href="trips.html"><i class="fas fa-map-marked-alt"></i> Trips</a>
+    <a class="" href="checklist.html"><i class="fas fa-check-square"></i> Packing</a>
+    <a class="" href="community.html"><i class="fas fa-users"></i> Community</a>
+    <a class="" href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+  </div>
+<div class="main">
+<div class="screen-header"><h1>Admin Panel</h1></div>
+      <div class="admin-tabs">
+        <div class="admin-tab active" onclick="switchAdminTab('users', this)">Manage Users</div>
+        <div class="admin-tab" onclick="switchAdminTab('cities', this)">Popular Cities</div>
+        <div class="admin-tab" onclick="switchAdminTab('activities', this)">Popular Activities</div>
+        <div class="admin-tab" onclick="switchAdminTab('trends', this)">Trends & Analytics</div>
+      </div>
+      <div id="admin-tab-users" class="admin-panel-content" style="display:block">
+        <div class="grid-4" style="margin-bottom:24px">
+          <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><div class="stat-label">Total Users</div><div class="stat-value" id="total-users-val">0</div></div></div>
+          <div class="stat-card"><div class="stat-icon" style="color:var(--teal)"><i class="fas fa-map-marked-alt"></i></div><div class="stat-info"><div class="stat-label">Active Trips</div><div class="stat-value" id="active-trips-val">0</div></div></div>
+        </div>
+        <div class="card" style="overflow-x:auto">
+          <table class="data-table">
+            <thead><tr><th>User</th><th>Email</th><th>Trips</th><th>Status</th></tr></thead>
+            <tbody id="users-table-body">
+              <!-- Rows will be inserted here dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="admin-tab-cities" class="admin-panel-content">
+        <div class="card trip-mode india-mode" style="max-width:800px; margin:0 auto">
+          <h3 class="card-title" style="margin-bottom:24px">Popular Cities</h3>
+          <div class="chart-bar"><div class="chart-bar-label">Jaipur</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:88%; background:var(--accent)">8820</div></div><div style="font-weight:bold">88%</div></div>
+          <div class="chart-bar"><div class="chart-bar-label">Goa</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:79%; background:var(--teal)">7940</div></div><div style="font-weight:bold">79%</div></div>
+          <div class="chart-bar"><div class="chart-bar-label">Manali</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:71%; background:var(--accent2)">7120</div></div><div style="font-weight:bold">71%</div></div>
+          <div class="chart-bar"><div class="chart-bar-label">Udaipur</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:65%; background:#007bff">6510</div></div><div style="font-weight:bold">65%</div></div>
+          <div class="chart-bar"><div class="chart-bar-label">Kerala</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:55%; background:#28a745">5530</div></div><div style="font-weight:bold">55%</div></div>
+        </div>
+        <div class="card trip-mode intl-mode" style="max-width:800px; margin:0 auto; display:none;">
+          <h3 class="card-title" style="margin-bottom:24px">Popular Cities</h3>
+          <div class="chart-bar"><div class="chart-bar-label">Paris</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:88%; background:var(--accent)">8820</div></div><div style="font-weight:bold">88%</div></div>
+          <div class="chart-bar"><div class="chart-bar-label">Tokyo</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:79%; background:var(--teal)">7940</div></div><div style="font-weight:bold">79%</div></div>
+          <div class="chart-bar"><div class="chart-bar-label">Rome</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:71%; background:var(--accent2)">7120</div></div><div style="font-weight:bold">71%</div></div>
+          <div class="chart-bar"><div class="chart-bar-label">New York</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:65%; background:#007bff">6510</div></div><div style="font-weight:bold">65%</div></div>
+          <div class="chart-bar"><div class="chart-bar-label">Bali</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:55%; background:#28a745">5530</div></div><div style="font-weight:bold">55%</div></div>
+        </div>
+      </div>
+      <div id="admin-tab-activities" class="admin-panel-content">
+        <div class="card trip-mode india-mode" style="overflow-x:auto">
+          <table class="data-table">
+            <thead><tr><th>Activity</th><th>Category</th><th>Bookings</th><th>Revenue</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:bold">Camel Safari</td><td><span class="badge badge-amber">Adventure</span></td><td>4,210</td><td style="color:var(--teal);font-weight:bold">₹8.4M</td></tr>
+              <tr><td style="font-weight:bold">River Rafting</td><td><span class="badge badge-blue">Adventure</span></td><td>9,830</td><td style="color:var(--teal);font-weight:bold">₹4.9M</td></tr>
+              <tr><td style="font-weight:bold">Scuba Diving</td><td><span class="badge badge-teal">Adventure</span></td><td>7,120</td><td style="color:var(--teal);font-weight:bold">₹3.5M</td></tr>
+              <tr><td style="font-weight:bold">Temple Tours</td><td><span class="badge badge-pink">Culture</span></td><td>11,240</td><td style="color:var(--teal);font-weight:bold">₹2.2M</td></tr>
+              <tr><td style="font-weight:bold">Houseboat Stay</td><td><span class="badge badge-gray">Leisure</span></td><td>2,890</td><td style="color:var(--teal);font-weight:bold">₹5.7M</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card trip-mode intl-mode" style="overflow-x:auto; display:none;">
+          <table class="data-table">
+            <thead><tr><th>Activity</th><th>Category</th><th>Bookings</th><th>Revenue</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:bold">Paragliding</td><td><span class="badge badge-gray">Adventure</span></td><td>4,210</td><td style="color:var(--teal);font-weight:bold">$840K</td></tr>
+              <tr><td style="font-weight:bold">Guided City Tours</td><td><span class="badge badge-gray">Culture</span></td><td>9,830</td><td style="color:var(--teal);font-weight:bold">$490K</td></tr>
+              <tr><td style="font-weight:bold">Food & Wine Tasting</td><td><span class="badge badge-gray">Food</span></td><td>7,120</td><td style="color:var(--teal);font-weight:bold">$356K</td></tr>
+              <tr><td style="font-weight:bold">Scuba Diving</td><td><span class="badge badge-gray">Adventure</span></td><td>2,890</td><td style="color:var(--teal);font-weight:bold">$578K</td></tr>
+              <tr><td style="font-weight:bold">Museum Passes</td><td><span class="badge badge-gray">Culture</span></td><td>11,240</td><td style="color:var(--teal);font-weight:bold">$224K</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="admin-tab-trends" class="admin-panel-content">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">Revenue Distribution</h3>
+            <div style="width:160px; height:160px; border-radius:50%; background:conic-gradient(var(--accent) 0% 50%, var(--teal) 50% 80%, var(--accent2) 80% 100%); margin:24px auto;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- main -->
+</div>
+  <div class="modal-bg" id="plan-trip-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Plan a New Trip</h2><button class="modal-close" onclick="closeModal('plan-trip-modal')">&times;</button></div>
+      <div class="input-group">
+        <label class="label">Trip Type</label>
+        <div class="trip-type-selector" style="margin-bottom:0">
+          <button class="btn trip-type-btn active" data-type="india" onclick="switchTripType('india')" type="button">India Trip</button>
+          <button class="btn trip-type-btn" data-type="intl" onclick="switchTripType('intl')" type="button">International Trip</button>
+        </div>
+      </div>
+      <div class="input-group"><label class="label">Trip Name</label><input type="text" class="input" placeholder="e.g. Summer Vacation"></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Start Date</label><input type="date" class="input"></div>
+        <div class="input-group"><label class="label">End Date</label><input type="date" class="input"></div>
+      </div>
+      <div class="input-group"><label class="label">Destination</label><input type="text" class="input" placeholder="e.g. Jaipur, Rajasthan"></div>
+      <div class="input-group"><label class="label">Budget (<span class="currency-symbol">₹</span>)</label><input type="number" class="input" placeholder="e.g. 15000"></div>
+      <div style="display:flex;gap:16px;margin-top:24px;">
+        <button class="btn btn-primary" style="flex:1" onclick="closeModal('plan-trip-modal'); window.location.href='create-trip.html'; showToast('Started planning trip')">Continue</button>
+        <button class="btn" style="flex:1;border:1px solid var(--border)" onclick="closeModal('plan-trip-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-item-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Item to Checklist</h2><button class="modal-close" onclick="closeModal('add-item-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Item Name</label><input type="text" class="input" id="new-item-name" placeholder="e.g. Sunglasses"></div>
+      <div class="input-group">
+        <label class="label">Category</label>
+        <select class="select" id="new-item-category">
+          <option>Documents</option><option>Clothing</option><option>Electronics</option><option>Health & Hygiene</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="addChecklistItem()">Add Item</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-note-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Trip Note</h2><button class="modal-close" onclick="closeModal('add-note-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Title</label><input type="text" class="input" id="note-title" placeholder="e.g. Hotel Check-in"></div>
+      <div class="input-group"><label class="label">Content</label><textarea class="input" id="note-content" rows="4" placeholder="Write your notes here..."></textarea></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Day / Date</label><input type="text" class="input" id="note-day" placeholder="e.g. Day 3"></div>
+        <div class="input-group"><label class="label">Stop / City</label><input type="text" class="input" id="note-city" placeholder="e.g. Jaipur"></div>
+      </div>
+      <button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="addNote()">Save Note</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/api.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    async function loadAdminData() {
+      const statsResponse = await API.fetchData('admin/stats');
+      if (statsResponse.success) {
+        const data = statsResponse.data;
+        document.getElementById('total-users-val').innerText = data.total_users;
+        document.getElementById('active-trips-val').innerText = data.total_trips;
+        
+        const citiesContainer = document.querySelector('.card.trip-mode.india-mode');
+        if (citiesContainer && data.popular_cities) {
+          const title = citiesContainer.querySelector('h3');
+          citiesContainer.innerHTML = '';
+          citiesContainer.appendChild(title);
+          
+          data.popular_cities.forEach(city => {
+            const bar = document.createElement('div');
+            bar.className = 'chart-bar';
+            const percentage = data.total_trips > 0 ? Math.min(100, Math.round((city.count / data.total_trips) * 100)) : 0;
+            bar.innerHTML = `
+              <div class="chart-bar-label">${city.city_name}</div>
+              <div class="chart-bar-track">
+                <div class="chart-bar-fill" style="width:${percentage}%; background:var(--accent)">${city.count}</div>
+              </div>
+              <div style="font-weight:bold">${percentage}%</div>
+            `;
+            citiesContainer.appendChild(bar);
+          });
+        }
+      }
+
+      const usersResponse = await API.fetchData('admin/users');
+      if (usersResponse.success) {
+        const users = usersResponse.data;
+        const tableBody = document.getElementById('users-table-body');
+        
+        if (tableBody) {
+          tableBody.innerHTML = '';
+          users.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td style="font-weight:bold">${user.full_name}</td>
+              <td>${user.email}</td>
+              <td>${user.trips_count}</td>
+              <td><span class="badge badge-green">Active</span></td>
+            `;
+            tableBody.appendChild(row);
+          });
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadAdminData);
+  </script>
+</body>
+</html>

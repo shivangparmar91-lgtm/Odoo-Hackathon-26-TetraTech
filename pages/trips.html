@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Trips</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="logged-in">
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Global Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">Traveloop <div class="dot"></div></div>
+    <div class="topbar-center">
+      <i class="fas fa-search"></i>
+      <input type="text" class="topbar-search" placeholder="Search trips, activities, cities...">
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+      <button class="btn-icon"><i class="fas fa-filter"></i></button>
+      <button class="btn-icon"><i class="fas fa-sort"></i></button>
+      <div class="avatar-circle">AM</div>
+    </div>
+  </div>
+
+  <!-- Global Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Main</div>
+      <a class="sidebar-link " href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+      <a class="sidebar-link active" href="trips.html"><i class="fas fa-map-marked-alt"></i> My Trips</a>
+      <a class="sidebar-link " href="create-trip.html"><i class="fas fa-plus-circle"></i> Plan a Trip</a>
+      <a class="sidebar-link " href="itinerary.html"><i class="fas fa-calendar-alt"></i> Itinerary</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tools</div>
+      <a class="sidebar-link " href="search.html"><i class="fas fa-search"></i> Activity Search</a>
+      <a class="sidebar-link " href="checklist.html"><i class="fas fa-check-square"></i> Packing List</a>
+      <a class="sidebar-link " href="notes.html"><i class="fas fa-sticky-note"></i> Trip Notes</a>
+      <a class="sidebar-link " href="budget.html"><i class="fas fa-file-invoice-dollar"></i> Expenses</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Discover</div>
+      <a class="sidebar-link " href="community.html"><i class="fas fa-users"></i> Community</a>
+      <a class="sidebar-link " href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Admin</div>
+      <a class="sidebar-link " href="admin.html"><i class="fas fa-cog"></i> Admin Panel</a>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-nav">
+    <a class="" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="active" href="trips.html"><i class="fas fa-map-marked-alt"></i> Trips</a>
+    <a class="" href="checklist.html"><i class="fas fa-check-square"></i> Packing</a>
+    <a class="" href="community.html"><i class="fas fa-users"></i> Community</a>
+    <a class="" href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+  </div>
+<div class="main">
+<div class="screen-header">
+        <h1>My Trips</h1>
+        <button class="btn btn-primary" onclick="window.location.href='create-trip.html'"><i class="fas fa-plus"></i> New Trip</button>
+      </div>
+
+      <!-- India Trips -->
+      <div class="trip-mode india-mode" id="trips-container-india">
+        <!-- Will be populated by JS -->
+      </div>
+      
+      <!-- Intl Trips -->
+      <div class="trip-mode intl-mode" id="trips-container-intl" style="display:none;">
+        <!-- Will be populated by JS -->
+      </div>
+</div>
+  <div class="modal-bg" id="plan-trip-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Plan a New Trip</h2><button class="modal-close" onclick="closeModal('plan-trip-modal')">&times;</button></div>
+      <div class="input-group">
+        <label class="label">Trip Type</label>
+        <div class="trip-type-selector" style="margin-bottom:0">
+          <button class="btn trip-type-btn active" data-type="india" onclick="switchTripType('india')" type="button">India Trip</button>
+          <button class="btn trip-type-btn" data-type="intl" onclick="switchTripType('intl')" type="button">International Trip</button>
+        </div>
+      </div>
+      <div class="input-group"><label class="label">Trip Name</label><input type="text" class="input" placeholder="e.g. Summer Vacation"></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Start Date</label><input type="date" class="input"></div>
+        <div class="input-group"><label class="label">End Date</label><input type="date" class="input"></div>
+      </div>
+      <div class="input-group"><label class="label">Destination</label><input type="text" class="input" placeholder="e.g. Jaipur, Rajasthan"></div>
+      <div class="input-group"><label class="label">Budget (<span class="currency-symbol">₹</span>)</label><input type="number" class="input" placeholder="e.g. 15000"></div>
+      <div style="display:flex;gap:16px;margin-top:24px;">
+        <button class="btn btn-primary" style="flex:1" onclick="closeModal('plan-trip-modal'); window.location.href='create-trip.html'; showToast('Started planning trip')">Continue</button>
+        <button class="btn" style="flex:1;border:1px solid var(--border)" onclick="closeModal('plan-trip-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-item-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Item to Checklist</h2><button class="modal-close" onclick="closeModal('add-item-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Item Name</label><input type="text" class="input" id="new-item-name" placeholder="e.g. Sunglasses"></div>
+      <div class="input-group">
+        <label class="label">Category</label>
+        <select class="select" id="new-item-category">
+          <option>Documents</option><option>Clothing</option><option>Electronics</option><option>Health & Hygiene</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="addChecklistItem()">Add Item</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-note-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Trip Note</h2><button class="modal-close" onclick="closeModal('add-note-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Title</label><input type="text" class="input" id="note-title" placeholder="e.g. Hotel Check-in"></div>
+      <div class="input-group"><label class="label">Content</label><textarea class="input" id="note-content" rows="4" placeholder="Write your notes here..."></textarea></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Day / Date</label><input type="text" class="input" id="note-day" placeholder="e.g. Day 3"></div>
+        <div class="input-group"><label class="label">Stop / City</label><input type="text" class="input" id="note-city" placeholder="e.g. Jaipur"></div>
+      </div>
+      <button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="addNote()">Save Note</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/api.js"></script>
+  <script src="../js/modules/trips.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof initializeTrips === 'function') {
+        initializeTrips();
+      }
+    });
+  </script>
+</body>
+</html>

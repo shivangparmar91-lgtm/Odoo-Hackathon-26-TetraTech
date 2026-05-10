@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Budget</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    @media print {
+      .sidebar, .topbar, .mobile-nav, .btn, .chart-container {
+        display: none !important;
+      }
+      .main {
+        margin-left: 0 !important;
+        padding: 0 !important;
+      }
+      .card {
+        border: none !important;
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="logged-in">
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Global Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">Traveloop <div class="dot"></div></div>
+    <div class="topbar-center">
+      <i class="fas fa-search"></i>
+      <input type="text" class="topbar-search" placeholder="Search trips, activities, cities...">
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+      <button class="btn-icon"><i class="fas fa-filter"></i></button>
+      <button class="btn-icon"><i class="fas fa-sort"></i></button>
+      <div class="avatar-circle">AM</div>
+    </div>
+  </div>
+
+  <!-- Global Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Main</div>
+      <a class="sidebar-link " href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+      <a class="sidebar-link " href="trips.html"><i class="fas fa-map-marked-alt"></i> My Trips</a>
+      <a class="sidebar-link " href="create-trip.html"><i class="fas fa-plus-circle"></i> Plan a Trip</a>
+      <a class="sidebar-link " href="itinerary.html"><i class="fas fa-calendar-alt"></i> Itinerary</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tools</div>
+      <a class="sidebar-link " href="search.html"><i class="fas fa-search"></i> Activity Search</a>
+      <a class="sidebar-link " href="checklist.html"><i class="fas fa-check-square"></i> Packing List</a>
+      <a class="sidebar-link " href="notes.html"><i class="fas fa-sticky-note"></i> Trip Notes</a>
+      <a class="sidebar-link active" href="budget.html"><i class="fas fa-file-invoice-dollar"></i> Expenses</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Discover</div>
+      <a class="sidebar-link " href="community.html"><i class="fas fa-users"></i> Community</a>
+      <a class="sidebar-link " href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Admin</div>
+      <a class="sidebar-link " href="admin.html"><i class="fas fa-cog"></i> Admin Panel</a>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-nav">
+    <a class="" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="" href="trips.html"><i class="fas fa-map-marked-alt"></i> Trips</a>
+    <a class="" href="checklist.html"><i class="fas fa-check-square"></i> Packing</a>
+    <a class="" href="community.html"><i class="fas fa-users"></i> Community</a>
+    <a class="" href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+  </div>
+<div class="main">
+<div class="screen-header"><h1>Expense & Invoice</h1></div>
+      
+      <div class="trip-mode india-mode">
+        <div class="grid-2">
+          <div class="invoice-header">
+            <div style="font-size: 2rem; margin-bottom: 8px;">🗺️</div>
+            <h2>Loading Trip...</h2>
+            <div class="invoice-info"><p>Loading dates...</p><p>Loading destination...</p><p><i class="fas fa-user-friends"></i> - Travelers</p></div>
+            <div style="margin-top: 16px;"><span id="payment-status-badge" class="badge badge-amber" style="background:rgba(255,255,255,0.2);color:white">Payment Pending</span></div>
+            <div style="position:absolute; top:24px; right:24px; font-family:var(--font-mono); font-size:0.875rem; color:rgba(255,255,255,0.7)">INV-xyz-30290</div>
+          </div>
+          <div class="card">
+            <h3 class="card-title" style="margin-bottom:16px">Budget Insights</h3>
+            <div style="display:flex; align-items:center; gap:24px">
+              <div class="chart-container"></div>
+              <div style="flex:1">
+                <div style="margin-bottom:8px"><span style="color:var(--text2)">Total Budget:</span> <strong>₹0</strong></div>
+                <div style="margin-bottom:8px"><span style="color:var(--text2)">Total Spent:</span> <strong style="color:var(--accent)">₹0</strong></div>
+                <div style="margin-bottom:16px"><span style="color:var(--text2)">Remaining:</span> <strong style="color:var(--accent)">₹0</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="invoice-details">
+          <div style="overflow-x:auto;">
+            <table class="data-table">
+              <thead><tr><th>Category</th><th>Description</th><th>Qty</th><th>Unit Cost</th><th style="text-align:right">Amount</th></tr></thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="invoice-totals" style="width:300px; margin-left:auto">
+            <div class="invoice-total-row"><span>Subtotal</span><span id="invoice-subtotal">₹0</span></div>
+            <div class="invoice-total-row"><span>Tax 5%</span><span id="invoice-tax">₹0</span></div>
+            <div class="invoice-total-row"><span>Discount</span><span id="invoice-discount">₹0</span></div>
+            <div class="invoice-total-row grand-total"><span>Grand Total</span><span id="invoice-grand-total">₹0</span></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="trip-mode intl-mode" style="display:none;">
+        <div class="grid-2">
+          <div class="invoice-header">
+            <div style="font-size: 2rem; margin-bottom: 8px;">🗺️</div>
+            <h2>Trip to Europe Adventure</h2>
+            <div class="invoice-info"><p>May 15 - Jun 05 2025</p><p>4 cities · Created by James</p><p><i class="fas fa-user-friends"></i> 4 Travelers</p></div>
+            <div style="margin-top: 16px;"><span class="badge badge-amber" style="background:rgba(255,255,255,0.2);color:white">Payment Pending</span></div>
+            <div style="position:absolute; top:24px; right:24px; font-family:var(--font-mono); font-size:0.875rem; color:rgba(255,255,255,0.7)">INV-xyz-30290</div>
+          </div>
+          <div class="card">
+            <h3 class="card-title" style="margin-bottom:16px">Budget Insights</h3>
+            <div style="display:flex; align-items:center; gap:24px">
+              <div class="chart-container"></div>
+              <div style="flex:1">
+                <div style="margin-bottom:8px"><span style="color:var(--text2)">Total Budget:</span> <strong>$0</strong></div>
+                <div style="margin-bottom:8px"><span style="color:var(--text2)">Total Spent:</span> <strong style="color:var(--accent)">$0</strong></div>
+                <div style="margin-bottom:16px"><span style="color:var(--text2)">Remaining:</span> <strong style="color:var(--accent)">$0</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="invoice-details">
+          <div style="overflow-x:auto;">
+            <table class="data-table">
+              <thead><tr><th>Category</th><th>Description</th><th>Qty</th><th>Unit Cost</th><th style="text-align:right">Amount</th></tr></thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="invoice-totals" style="width:300px; margin-left:auto">
+            <div class="invoice-total-row"><span>Subtotal</span><span>$21,000</span></div>
+            <div class="invoice-total-row"><span>Tax 5%</span><span>$1,050</span></div>
+            <div class="invoice-total-row"><span>Discount</span><span>-$50</span></div>
+            <div class="invoice-total-row grand-total"><span>Grand Total</span><span>$22,000</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:16px; margin-top:24px">
+        <button class="btn" style="border:1px solid var(--border)" onclick="window.print()"><i class="fas fa-download"></i> Download Invoice</button>
+        <button class="btn" style="border:1px solid var(--border)" onclick="showToast('PDF Exported')"><i class="fas fa-file-pdf"></i> Export as PDF</button>
+        <button class="btn btn-teal" onclick="markAsPaid()">Mark as Paid</button>
+      </div>
+</div>
+  <div class="modal-bg" id="plan-trip-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Plan a New Trip</h2><button class="modal-close" onclick="closeModal('plan-trip-modal')">&times;</button></div>
+      <div class="input-group">
+        <label class="label">Trip Type</label>
+        <div class="trip-type-selector" style="margin-bottom:0">
+          <button class="btn trip-type-btn active" data-type="india" onclick="switchTripType('india')" type="button">India Trip</button>
+          <button class="btn trip-type-btn" data-type="intl" onclick="switchTripType('intl')" type="button">International Trip</button>
+        </div>
+      </div>
+      <div class="input-group"><label class="label">Trip Name</label><input type="text" class="input" placeholder="e.g. Summer Vacation"></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Start Date</label><input type="date" class="input"></div>
+        <div class="input-group"><label class="label">End Date</label><input type="date" class="input"></div>
+      </div>
+      <div class="input-group"><label class="label">Destination</label><input type="text" class="input" placeholder="e.g. Jaipur, Rajasthan"></div>
+      <div class="input-group"><label class="label">Budget (<span class="currency-symbol">₹</span>)</label><input type="number" class="input" placeholder="e.g. 15000"></div>
+      <div style="display:flex;gap:16px;margin-top:24px;">
+        <button class="btn btn-primary" style="flex:1" onclick="closeModal('plan-trip-modal'); window.location.href='create-trip.html'; showToast('Started planning trip')">Continue</button>
+        <button class="btn" style="flex:1;border:1px solid var(--border)" onclick="closeModal('plan-trip-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-item-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Item to Checklist</h2><button class="modal-close" onclick="closeModal('add-item-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Item Name</label><input type="text" class="input" id="new-item-name" placeholder="e.g. Sunglasses"></div>
+      <div class="input-group">
+        <label class="label">Category</label>
+        <select class="select" id="new-item-category">
+          <option>Documents</option><option>Clothing</option><option>Electronics</option><option>Health & Hygiene</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="addChecklistItem()">Add Item</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-note-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Trip Note</h2><button class="modal-close" onclick="closeModal('add-note-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Title</label><input type="text" class="input" id="note-title" placeholder="e.g. Hotel Check-in"></div>
+      <div class="input-group"><label class="label">Content</label><textarea class="input" id="note-content" rows="4" placeholder="Write your notes here..."></textarea></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Day / Date</label><input type="text" class="input" id="note-day" placeholder="e.g. Day 3"></div>
+        <div class="input-group"><label class="label">Stop / City</label><input type="text" class="input" id="note-city" placeholder="e.g. Jaipur"></div>
+      </div>
+      <button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="addNote()">Save Note</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/api.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const tripId = localStorage.getItem('currentTripId');
+    
+    if (!tripId) {
+      alert('Please select a trip from the dashboard first!');
+      window.location.href = 'dashboard.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const tbodies = document.querySelectorAll('.data-table tbody');
+      tbodies.forEach(tbody => {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center">Loading expenses...</td></tr>';
+      });
+
+      // Fetch Trip Details
+      const tripResponse = await API.fetchData(`trips/${tripId}`);
+      let destination = '';
+      let tripName = 'Plan a Trip';
+      let budget = 0;
+      let startDate = '';
+      let endDate = '';
+      
+      if (tripResponse.success) {
+        destination = tripResponse.data.destination || 'Jaipur';
+        tripName = tripResponse.data.trip_name || `Tour to ${destination}`;
+        budget = tripResponse.data.total_budget || 40000;
+        startDate = tripResponse.data.start_date || '2026-06-15';
+        endDate = tripResponse.data.end_date || '2026-06-20';
+      }
+      
+      // Update header
+      const headerH2s = document.querySelectorAll('.invoice-header h2');
+      const headerInfos = document.querySelectorAll('.invoice-info');
+      const user = JSON.parse(localStorage.getItem('user'));
+      
+      headerH2s.forEach(el => el.innerText = `Trip to ${tripName}`);
+      headerInfos.forEach(el => {
+        el.innerHTML = `
+          <p>${new Date(startDate).toLocaleDateString()} - ${new Date(endDate).toLocaleDateString()}</p>
+          <p>${destination} · Created by ${user ? user.full_name : 'You'}</p>
+          <p><i class="fas fa-user-friends"></i> 2 Travelers</p>
+        `;
+      });
+
+      // Check if we have selected activities in localStorage
+      const localActivities = JSON.parse(localStorage.getItem(`trip_${tripId}_activities`));
+      
+      const activityCosts = {
+        'River Rafting': 1500, 'Camel Safari': 1200, 'Trekking': 2500, 'Scuba Diving': 3500,
+        'Houseboat': 5000, 'Paragliding': 3000, 'Hiking': 1000, 'Food Tour': 800,
+        'Museum Visit': 300, 'Beach Relaxing': 0, 'Cycling Tour': 500, 'Skiing': 5000,
+        'Gondola Ride': 1500, 'Shikara Ride': 1000
+      };
+
+      let expenses = [];
+
+      // Try to fetch expenses from backend
+      const expensesResponse = await API.fetchData(`budget/${tripId}`);
+      
+      if (expensesResponse && expensesResponse.success && Array.isArray(expensesResponse.data) && expensesResponse.data.length > 0) {
+        expenses = expensesResponse.data;
+      } else if (localActivities && localActivities.length > 0) {
+        // Use local activities as expenses
+        expenses = localActivities.map(act => {
+          const cost = activityCosts[act] || 1500;
+          return {
+            description: act,
+            category: 'Activity',
+            qty: 1,
+            unit_cost: cost,
+            amount: cost
+          };
+        });
+      } else {
+        expenses = [];
+      }
+
+      renderExpenses(expenses);
+      
+      const totalSpent = expenses.reduce((sum, exp) => sum + Number(exp.amount), 0);
+      
+      updateBudgetUI({
+        total_budget: budget,
+        total_spent: totalSpent,
+        remaining_budget: budget - totalSpent
+      });
+    });
+
+
+    function updateBudgetUI(summary) {
+      const cards = document.querySelectorAll('.card');
+      const type = localStorage.getItem('tripType') || 'india';
+      const currency = type === 'intl' ? '$' : '₹';
+
+      cards.forEach(card => {
+        const strongs = card.querySelectorAll('strong');
+        if (strongs.length >= 3) {
+          strongs[0].innerText = `${currency}${summary.total_budget.toLocaleString()}`;
+          strongs[1].innerText = `${currency}${summary.total_spent.toLocaleString()}`;
+          const remaining = summary.remaining_budget;
+          if (remaining < 0) {
+            strongs[2].innerText = `-${currency}${Math.abs(remaining).toLocaleString()}`;
+            strongs[2].style.color = 'var(--accent)';
+          } else {
+            strongs[2].innerText = `${currency}${remaining.toLocaleString()}`;
+            strongs[2].style.color = 'var(--teal)';
+          }
+        }
+      });
+
+      // Update Chart Dynamically
+      const chartContainer = document.querySelector('.chart-container');
+      if (chartContainer) {
+        const total = summary.total_budget || 1; // Avoid division by zero
+        const spent = summary.total_spent || 0;
+        const percentage = Math.min((spent / total) * 100, 100);
+        const color = spent > total ? 'var(--accent)' : 'var(--teal)';
+        
+        chartContainer.style.background = `conic-gradient(${color} 0% ${percentage}%, var(--border) ${percentage}% 100%)`;
+        chartContainer.style.borderRadius = '50%';
+      }
+    }
+
+    function renderExpenses(expenses) {
+      const tbodies = document.querySelectorAll('.data-table tbody');
+      if (tbodies.length === 0) return;
+
+      const type = localStorage.getItem('tripType') || 'india';
+      const currency = type === 'intl' ? '$' : '₹';
+
+      if (expenses.length === 0) {
+        tbodies.forEach(tbody => {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center">No expenses recorded for this trip.</td></tr>';
+        });
+      } else {
+        tbodies.forEach(tbody => {
+          tbody.innerHTML = '';
+          expenses.forEach(exp => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><span class="badge badge-blue">${exp.category}</span></td>
+            <td>${exp.description}</td>
+            <td>${exp.qty || '-'}</td>
+            <td>${exp.unit_cost ? currency + exp.unit_cost.toLocaleString() : '-'}</td>
+            <td style="text-align:right">${currency}${exp.amount.toLocaleString()}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      });
+    }
+
+      // Update totals in the summary box below the table
+      const subtotal = expenses.reduce((sum, exp) => sum + Number(exp.amount), 0);
+      const tax = Math.round(subtotal * 0.05); // 5% tax
+      const discount = subtotal > 10000 ? 500 : 0; // Example discount
+      const grandTotal = subtotal + tax - discount;
+
+      const totalsContainers = document.querySelectorAll('.invoice-totals');
+      totalsContainers.forEach(container => {
+        const rows = container.querySelectorAll('.invoice-total-row');
+        if (rows.length >= 4) {
+          rows[0].querySelectorAll('span')[1].innerText = `${currency}${subtotal.toLocaleString()}`;
+          rows[1].querySelectorAll('span')[1].innerText = `${currency}${tax.toLocaleString()}`;
+          rows[2].querySelectorAll('span')[1].innerText = `-${currency}${discount.toLocaleString()}`;
+          rows[3].querySelectorAll('span')[1].innerText = `${currency}${grandTotal.toLocaleString()}`;
+        }
+      });
+    }
+
+    function markAsPaid() {
+      const badge = document.getElementById('payment-status-badge');
+      if (badge) {
+        badge.innerText = 'Paid';
+        badge.className = 'badge badge-teal';
+        badge.style.background = 'rgba(22,199,154,0.2)';
+        badge.style.color = 'var(--teal)';
+      }
+      showToast('Marked as Paid');
+    }
+  </script>
+</body>
+</html>

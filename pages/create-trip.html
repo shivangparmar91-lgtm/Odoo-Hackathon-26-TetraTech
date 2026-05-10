@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Create-trip</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="logged-in">
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Global Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">Traveloop <div class="dot"></div></div>
+    <div class="topbar-center">
+      <i class="fas fa-search"></i>
+      <input type="text" class="topbar-search" placeholder="Search trips, activities, cities...">
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+      <button class="btn-icon"><i class="fas fa-filter"></i></button>
+      <button class="btn-icon"><i class="fas fa-sort"></i></button>
+      <div class="avatar-circle">AM</div>
+    </div>
+  </div>
+
+  <!-- Global Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Main</div>
+      <a class="sidebar-link " href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+      <a class="sidebar-link " href="trips.html"><i class="fas fa-map-marked-alt"></i> My Trips <span class="badge badge-accent" style="background:var(--accent);color:white;margin-left:auto">3</span></a>
+      <a class="sidebar-link active" href="create-trip.html"><i class="fas fa-plus-circle"></i> Plan a Trip</a>
+      <a class="sidebar-link " href="itinerary.html"><i class="fas fa-calendar-alt"></i> Itinerary</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tools</div>
+      <a class="sidebar-link " href="search.html"><i class="fas fa-search"></i> Activity Search</a>
+      <a class="sidebar-link " href="checklist.html"><i class="fas fa-check-square"></i> Packing List</a>
+      <a class="sidebar-link " href="notes.html"><i class="fas fa-sticky-note"></i> Trip Notes</a>
+      <a class="sidebar-link " href="budget.html"><i class="fas fa-file-invoice-dollar"></i> Expenses</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Discover</div>
+      <a class="sidebar-link " href="community.html"><i class="fas fa-users"></i> Community</a>
+      <a class="sidebar-link " href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Admin</div>
+      <a class="sidebar-link " href="admin.html"><i class="fas fa-cog"></i> Admin Panel</a>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-nav">
+    <a class="" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="" href="trips.html"><i class="fas fa-map-marked-alt"></i> Trips</a>
+    <a class="" href="checklist.html"><i class="fas fa-check-square"></i> Packing</a>
+    <a class="" href="community.html"><i class="fas fa-users"></i> Community</a>
+    <a class="" href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+  </div>
+<div class="main">
+<div class="screen-header"><h1>Create Trip</h1></div>
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom: 24px;">Trip Details</h3>
+          <div class="input-group">
+            <label class="label">Trip Type</label>
+            <div class="trip-type-selector" style="margin-bottom:0">
+              <button class="btn trip-type-btn active" data-type="india" onclick="switchTripType('india')" type="button">India Trip</button>
+              <button class="btn trip-type-btn" data-type="intl" onclick="switchTripType('intl')" type="button">International Trip</button>
+            </div>
+          </div>
+          <div class="input-group"><label class="label">Trip Name</label><input type="text" id="trip-name" class="input" placeholder="e.g. Summer Vacation"></div>
+          <div class="form-grid">
+            <div class="input-group"><label class="label">Start Date</label><input type="date" id="start-date" class="input"></div>
+            <div class="input-group"><label class="label">End Date</label><input type="date" id="end-date" class="input"></div>
+          </div>
+          <div class="input-group">
+            <label class="label">Select a Place</label>
+            <input type="text" id="trip-destination" class="input" placeholder="e.g. Jaipur, Rajasthan">
+          </div>
+          <div class="form-grid">
+            <div class="input-group"><label class="label">Number of Travelers</label><input type="number" id="travelers" class="input" value="2"></div>
+            <div class="input-group"><label class="label">Total Budget (<span class="currency-symbol">₹</span>)</label><input type="number" id="budget" class="input" value="5000"></div>
+          </div>
+          <div class="input-group"><label class="label">Trip Notes</label><textarea id="trip-notes" class="input" rows="3" placeholder="Any special requirements..."></textarea></div>
+          <div style="display:flex; gap:16px; margin-top:24px;">
+            <button class="btn btn-primary" style="flex:1" onclick="createTrip()">Build Itinerary</button>
+            <button class="btn" style="flex:1; border:1px solid var(--border)" onclick="window.location.href='dashboard.html'">Cancel</button>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom: 24px;">
+            <h3 class="card-title" style="margin-bottom: 16px;">Suggested Places to Visit</h3>
+            <div class="grid-3 trip-mode india-mode">
+              <div class="dest-card" data-cost="2000" onclick="setDestination('Taj Mahal, Agra')"><div class="dest-thumb">🕌</div><div class="dest-label">Taj Mahal</div></div>
+              <div class="dest-card" data-cost="1500" onclick="setDestination('Hawa Mahal, Jaipur')"><div class="dest-thumb">🏯</div><div class="dest-label">Hawa Mahal</div></div>
+              <div class="dest-card" data-cost="1000" onclick="setDestination('Golden Temple, Amritsar')"><div class="dest-thumb">🛕</div><div class="dest-label">Golden Temple</div></div>
+              <div class="dest-card" data-cost="5000" onclick="setDestination('Backwaters, Kerala')"><div class="dest-thumb">🛶</div><div class="dest-label">Backwaters Kerala</div></div>
+              <div class="dest-card" data-cost="8000" onclick="setDestination('Leh, Ladakh')"><div class="dest-thumb">🏍️</div><div class="dest-label">Leh Roads</div></div>
+              <div class="dest-card" data-cost="4000" onclick="setDestination('Rann of Kutch, Gujarat')"><div class="dest-thumb">🏜️</div><div class="dest-label">Rann of Kutch</div></div>
+            </div>
+            <div class="grid-3 trip-mode intl-mode" style="display:none;">
+              <div class="dest-card" data-cost="50000" onclick="setDestination('Eiffel Tower, Paris')"><div class="dest-thumb">🗼</div><div class="dest-label">Eiffel Tower</div></div>
+              <div class="dest-card" data-cost="40000" onclick="setDestination('Colosseum, Rome')"><div class="dest-thumb">🏟️</div><div class="dest-label">Colosseum</div></div>
+              <div class="dest-card" data-cost="45000" onclick="setDestination('Louvre, Paris')"><div class="dest-thumb">🖼️</div><div class="dest-label">Louvre</div></div>
+              <div class="dest-card" data-cost="35000" onclick="setDestination('Vatican City')"><div class="dest-thumb">⛪</div><div class="dest-label">Vatican</div></div>
+              <div class="dest-card" data-cost="30000" onclick="setDestination('Rome, Italy')"><div class="dest-thumb">🍝</div><div class="dest-label">Food Tour</div></div>
+              <div class="dest-card" data-cost="50000" onclick="setDestination('Paris, France')"><div class="dest-thumb">🛥️</div><div class="dest-label">Seine Cruise</div></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title" style="margin-bottom: 16px;">Suggested Activities</h3>
+            <div style="display:flex; flex-wrap:wrap;" class="trip-mode india-mode activities-grid">
+              <span class="chip active" onclick="this.classList.toggle('active')">Camel Safari</span>
+              <span class="chip" onclick="this.classList.toggle('active')">Temple Visit</span>
+              <span class="chip active" onclick="this.classList.toggle('active')">River Rafting</span>
+              <span class="chip" onclick="this.classList.toggle('active')">Beach Party</span>
+              <span class="chip" onclick="this.classList.toggle('active')">Tea Garden Tour</span>
+              <span class="chip" onclick="this.classList.toggle('active')">Houseboat Stay</span>
+              <span class="chip" onclick="this.classList.toggle('active')">Photography</span>
+              <span class="chip active" onclick="this.classList.toggle('active')">Trekking</span>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; display:none;" class="trip-mode intl-mode activities-grid">
+              <span class="chip active" onclick="this.classList.toggle('active')">Art & Culture</span>
+              <span class="chip" onclick="this.classList.toggle('active')">Food & Dining</span>
+              <span class="chip active" onclick="this.classList.toggle('active')">Walking Tours</span>
+              <span class="chip" onclick="this.classList.toggle('active')">Water Sports</span>
+              <span class="chip" onclick="this.classList.toggle('active')">Adventure</span>
+              <span class="chip" onclick="this.classList.toggle('active')">Photography</span>
+              <span class="chip" onclick="this.classList.toggle('active')">Theatre</span>
+              <span class="chip" onclick="this.classList.toggle('active')">Shopping</span>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+  <div class="modal-bg" id="plan-trip-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Plan a New Trip</h2><button class="modal-close" onclick="closeModal('plan-trip-modal')">&times;</button></div>
+      <div class="input-group">
+        <label class="label">Trip Type</label>
+        <div class="trip-type-selector" style="margin-bottom:0">
+          <button class="btn trip-type-btn active" data-type="india" onclick="switchTripType('india')" type="button">India Trip</button>
+          <button class="btn trip-type-btn" data-type="intl" onclick="switchTripType('intl')" type="button">International Trip</button>
+        </div>
+      </div>
+      <div class="input-group"><label class="label">Trip Name</label><input type="text" class="input" placeholder="e.g. Summer Vacation"></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Start Date</label><input type="date" class="input"></div>
+        <div class="input-group"><label class="label">End Date</label><input type="date" class="input"></div>
+      </div>
+      <div class="input-group"><label class="label">Destination</label><input type="text" class="input" placeholder="e.g. Jaipur, Rajasthan"></div>
+      <div class="input-group"><label class="label">Budget (<span class="currency-symbol">₹</span>)</label><input type="number" class="input" placeholder="e.g. 15000"></div>
+      <div style="display:flex;gap:16px;margin-top:24px;">
+        <button class="btn btn-primary" style="flex:1" onclick="closeModal('plan-trip-modal'); window.location.href='create-trip.html'; showToast('Started planning trip')">Continue</button>
+        <button class="btn" style="flex:1;border:1px solid var(--border)" onclick="closeModal('plan-trip-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-item-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Item to Checklist</h2><button class="modal-close" onclick="closeModal('add-item-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Item Name</label><input type="text" class="input" id="new-item-name" placeholder="e.g. Sunglasses"></div>
+      <div class="input-group">
+        <label class="label">Category</label>
+        <select class="select" id="new-item-category">
+          <option>Documents</option><option>Clothing</option><option>Electronics</option><option>Health & Hygiene</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="addChecklistItem()">Add Item</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-note-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Trip Note</h2><button class="modal-close" onclick="closeModal('add-note-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Title</label><input type="text" class="input" id="note-title" placeholder="e.g. Hotel Check-in"></div>
+      <div class="input-group"><label class="label">Content</label><textarea class="input" id="note-content" rows="4" placeholder="Write your notes here..."></textarea></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Day / Date</label><input type="text" class="input" id="note-day" placeholder="e.g. Day 3"></div>
+        <div class="input-group"><label class="label">Stop / City</label><input type="text" class="input" id="note-city" placeholder="e.g. Jaipur"></div>
+      </div>
+      <button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="addNote()">Save Note</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/api.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const citySuggestions = {
+      'Jaipur': {
+        places: [
+          { name: 'Hawa Mahal', thumb: '🏯' },
+          { name: 'Amber Fort', thumb: '🏰' },
+          { name: 'City Palace', thumb: '🏛️' }
+        ],
+        activities: [
+          { name: 'Camel Safari', cost: 1500, category: 'Activity' },
+          { name: 'Puppet Show', cost: 500, category: 'Entertainment' },
+          { name: 'Palace Tour', cost: 1000, category: 'Sightseeing' },
+          { name: 'Bazaar Shopping', cost: 2000, category: 'Shopping' }
+        ]
+      },
+      'Goa': {
+        places: [
+          { name: 'Baga Beach', thumb: '🏖️' },
+          { name: 'Basilica of Bom Jesus', thumb: '⛪' }
+        ],
+        activities: [
+          { name: 'Scuba Diving', cost: 2500, category: 'Activity' },
+          { name: 'Beach Party', cost: 1500, category: 'Entertainment' },
+          { name: 'Water Sports', cost: 3000, category: 'Activity' },
+          { name: 'Dolphin Watching', cost: 1000, category: 'Sightseeing' }
+        ]
+      },
+      'Paris': {
+        places: [
+          { name: 'Eiffel Tower', thumb: '🗼' },
+          { name: 'Louvre Museum', thumb: '🖼️' }
+        ],
+        activities: [
+          { name: 'Seine Cruise', cost: 2000, category: 'Sightseeing' },
+          { name: 'Art Tour', cost: 1500, category: 'Activity' },
+          { name: 'Wine Tasting', cost: 3500, category: 'Food' },
+          { name: 'Cafe Hopping', cost: 1000, category: 'Food' }
+        ]
+      },
+      'Rome': {
+        places: [
+          { name: 'Colosseum', thumb: '🏟️' },
+          { name: 'Trevi Fountain', thumb: '⛲' }
+        ],
+        activities: [
+          { name: 'Pizza Making', cost: 2500, category: 'Food' },
+          { name: 'Historical Walk', cost: 1500, category: 'Sightseeing' },
+          { name: 'Vatican Tour', cost: 3000, category: 'Sightseeing' },
+          { name: 'Gelato Tasting', cost: 500, category: 'Food' }
+        ]
+      },
+      'New York': {
+        places: [
+          { name: 'Statue of Liberty', thumb: '🗽' },
+          { name: 'Central Park', thumb: '🌳' }
+        ],
+        activities: [
+          { name: 'Broadway Show', cost: 8000, category: 'Entertainment' },
+          { name: 'Empire State Visit', cost: 3500, category: 'Sightseeing' },
+          { name: 'Times Square Walk', cost: 0, category: 'Sightseeing' },
+          { name: 'Helicopter Tour', cost: 15000, category: 'Activity' }
+        ]
+      },
+      'Tokyo': {
+        places: [
+          { name: 'Senso-ji Temple', thumb: '⛩️' },
+          { name: 'Shibuya Crossing', thumb: '🚶' }
+        ],
+        activities: [
+          { name: 'Sushi Making', cost: 4000, category: 'Food' },
+          { name: 'Robot Restaurant', cost: 6000, category: 'Entertainment' },
+          { name: 'Anime Tour', cost: 2000, category: 'Sightseeing' },
+          { name: 'Mount Fuji Trip', cost: 8000, category: 'Activity' }
+        ]
+      },
+      'Bali': {
+        places: [
+          { name: 'Uluwatu Temple', thumb: '🛕' },
+          { name: 'Tegallalang Rice Terrace', thumb: '🌾' }
+        ],
+        activities: [
+          { name: 'Surfing Lesson', cost: 2000, category: 'Activity' },
+          { name: 'Yoga Retreat', cost: 3000, category: 'Wellness' },
+          { name: 'Scuba Diving', cost: 4000, category: 'Activity' },
+          { name: 'Temple Tour', cost: 1500, category: 'Sightseeing' }
+        ]
+      },
+      'Kashmir': {
+        places: [
+          { name: 'Dal Lake', thumb: '🛶' },
+          { name: 'Gulmarg', thumb: '⛷️' }
+        ],
+        activities: [
+          { name: 'Shikara Ride', cost: 1000, category: 'Activity' },
+          { name: 'Skiing', cost: 5000, category: 'Activity' },
+          { name: 'Gondola Ride', cost: 1500, category: 'Sightseeing' },
+          { name: 'Trekking', cost: 2000, category: 'Activity' }
+        ]
+      },
+      'Kerala': {
+        places: [
+          { name: 'Backwaters Alleppey', thumb: '🛶' },
+          { name: 'Munnar Tea Gardens', thumb: '🍃' }
+        ],
+        activities: [
+          { name: 'Houseboat Stay', cost: 8000, category: 'Accommodation' },
+          { name: 'Tea Garden Tour', cost: 500, category: 'Sightseeing' },
+          { name: 'Kathakali Show', cost: 800, category: 'Entertainment' },
+          { name: 'Ayurveda Spa', cost: 3000, category: 'Health' }
+        ]
+      },
+      'Leh Ladakh': {
+        places: [
+          { name: 'Pangong Lake', thumb: '🌊' },
+          { name: 'Nubra Valley', thumb: '🏜️' }
+        ],
+        activities: [
+          { name: 'Bike Riding', cost: 2000, category: 'Activity' },
+          { name: 'Camping', cost: 3000, category: 'Accommodation' },
+          { name: 'Stargazing', cost: 500, category: 'Activity' },
+          { name: 'Monastery Visit', cost: 300, category: 'Sightseeing' }
+        ]
+      },
+      'Udaipur': {
+        places: [
+          { name: 'Lake Pichola', thumb: '🌅' },
+          { name: 'City Palace', thumb: '🏰' }
+        ],
+        activities: [
+          { name: 'Boat Ride', cost: 800, category: 'Activity' },
+          { name: 'Cultural Show', cost: 1000, category: 'Entertainment' },
+          { name: 'Vintage Car Museum', cost: 500, category: 'Sightseeing' },
+          { name: 'Sunset View', cost: 0, category: 'Sightseeing' }
+        ]
+      }
+    };
+
+    function updateSuggestions(city) {
+      const key = Object.keys(citySuggestions).find(k => city.toLowerCase().includes(k.toLowerCase()));
+      
+      const grids = document.querySelectorAll('.grid-3.trip-mode');
+      const actGrids = document.querySelectorAll('.activities-grid');
+
+      if (key) {
+        const data = citySuggestions[key];
+        
+        // Update Places
+        grids.forEach(grid => {
+          grid.innerHTML = '';
+          data.places.forEach(place => {
+            const div = document.createElement('div');
+            div.className = 'dest-card';
+            div.setAttribute('onclick', `this.classList.toggle('active'); setDestination('${place.name}, ${key}')`);
+            div.innerHTML = `<div class="dest-thumb">${place.thumb}</div><div class="dest-label">${place.name}</div>`;
+            grid.appendChild(div);
+          });
+        });
+
+        // Update Activities
+        actGrids.forEach(grid => {
+          grid.innerHTML = '';
+          data.activities.forEach(act => {
+            const span = document.createElement('span');
+            span.className = 'chip active';
+            span.setAttribute('onclick', "this.classList.toggle('active')");
+            span.innerText = act.name;
+            grid.appendChild(span);
+          });
+        });
+      } else {
+        // Clear suggestions if no match found
+        grids.forEach(grid => {
+          grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text2); padding: 20px;">Type a supported city (e.g., Goa, Jaipur) to see suggestions!</div>';
+        });
+        actGrids.forEach(grid => {
+          grid.innerHTML = '<div style="color: var(--text2); padding: 10px;">No specific activities for this location.</div>';
+        });
+      }
+    }
+
+    function setDestination(val) {
+      const destInput = document.getElementById('trip-destination');
+      if (destInput) {
+        destInput.value = val;
+        updateSuggestions(val);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Clear inputs to avoid showing old trip values
+      const nameInput = document.getElementById('trip-name');
+      const startInput = document.getElementById('start-date');
+      const endInput = document.getElementById('end-date');
+      const destInput = document.getElementById('trip-destination');
+      const budgetInput = document.getElementById('budget');
+
+      if (nameInput) nameInput.value = '';
+      if (startInput) startInput.value = '';
+      if (endInput) endInput.value = '';
+      if (destInput) destInput.value = '';
+      if (budgetInput) budgetInput.value = '5000'; // Reset to default
+
+      const preset = localStorage.getItem('presetDestination');
+      if (preset) {
+        setDestination(preset);
+        localStorage.removeItem('presetDestination'); // Clear it
+      }
+
+      // Add listener for manual typing
+      const destInput = document.getElementById('trip-destination');
+      if (destInput) {
+        destInput.addEventListener('input', (e) => {
+          updateSuggestions(e.target.value);
+        });
+      }
+
+      // Add listener for budget filtering
+      const budgetInput = document.getElementById('budget');
+      if (budgetInput) {
+        budgetInput.addEventListener('input', (e) => {
+          const budgetVal = parseFloat(e.target.value) || 0;
+          
+          // Filter Activities
+          const chips = document.querySelectorAll('.activities-grid .chip');
+          const destinationVal = destInput ? destInput.value : '';
+          const key = Object.keys(citySuggestions).find(k => destinationVal.toLowerCase().includes(k.toLowerCase()));
+          
+          if (key) {
+            const data = citySuggestions[key];
+            chips.forEach(chip => {
+              const actName = chip.innerText;
+              const activity = data.activities.find(a => a.name === actName);
+              if (activity) {
+                if (budgetVal > 0 && activity.cost > budgetVal) {
+                  chip.style.display = 'none'; // Hide if too expensive
+                  chip.classList.remove('active'); // Deselect
+                } else {
+                  chip.style.display = ''; // Show if fits or no budget set
+                }
+              }
+            });
+          }
+
+          // Filter Destinations (Places)
+          const destCards = document.querySelectorAll('.dest-card');
+          destCards.forEach(card => {
+            const cost = parseFloat(card.getAttribute('data-cost')) || 0;
+            if (budgetVal > 0 && cost > budgetVal) {
+              card.style.display = 'none';
+            } else {
+              card.style.display = '';
+            }
+          });
+        });
+      }
+    });
+
+
+    async function createTrip() {
+      const name = document.getElementById('trip-name').value;
+      const startDate = document.getElementById('start-date').value;
+      const endDate = document.getElementById('end-date').value;
+      
+      // Get active trip type
+      const activeBtn = document.querySelector('.trip-type-btn.active');
+      const tripType = activeBtn ? activeBtn.getAttribute('data-type') : 'india';
+      
+      const destination = document.getElementById('trip-destination').value;
+      
+      const travelers = document.getElementById('travelers').value;
+      const budget = document.getElementById('budget').value;
+      const notes = document.getElementById('trip-notes').value;
+
+      if (!name || !startDate || !endDate) {
+        alert('Please fill in Trip Name, Start Date, and End Date');
+        return;
+      }
+
+      const response = await API.postData('trips/create', {
+        trip_name: name,
+        trip_type: tripType,
+        destination: destination,
+        start_date: startDate,
+        end_date: endDate,
+        travelers: travelers,
+        total_budget: budget,
+        notes: notes
+      });
+
+      if (response.success) {
+        const tripId = response.tripId;
+        localStorage.setItem('currentTripId', tripId);
+        
+        // Add auto-expenses for active activities!
+        const activeChips = document.querySelectorAll('.activities-grid .chip.active');
+        const activePlaces = document.querySelectorAll('.grid-3.trip-mode .dest-card.active');
+        
+        // Use Set to remove duplicates because there are 2 grids in the HTML!
+        const uniqueActivities = new Set();
+        activeChips.forEach(chip => uniqueActivities.add(chip.innerText));
+        
+        const selectedActivities = Array.from(uniqueActivities);
+        const selectedPlaces = Array.from(activePlaces).map(c => c.querySelector('.dest-label').innerText);
+        
+        // Save to localStorage for Itinerary page!
+        localStorage.setItem(`trip_${tripId}_activities`, JSON.stringify(selectedActivities));
+        localStorage.setItem(`trip_${tripId}_places`, JSON.stringify(selectedPlaces));
+
+        const destInput = document.getElementById('trip-destination');
+        const destinationVal = destInput ? destInput.value : '';
+        const key = Object.keys(citySuggestions).find(k => destinationVal.toLowerCase().includes(k.toLowerCase()));
+        
+        if (selectedActivities.length > 0) {
+          const data = key ? citySuggestions[key] : null;
+          let currentSpent = 0;
+          const maxBudget = parseFloat(document.getElementById('budget').value) || 0;
+
+          for (const actName of selectedActivities) {
+            const activity = data ? data.activities.find(a => a.name === actName) : null;
+            const cost = activity ? activity.cost : 1500; // Default cost if unknown
+            const category = activity ? activity.category : 'Activity';
+
+            // Only add if it fits in the budget (or if budget is 0/not set)
+            if (maxBudget === 0 || (currentSpent + cost) <= maxBudget) {
+              await API.postData('budget/add-expense', {
+                trip_id: tripId,
+                category: category,
+                description: actName,
+                qty: 1,
+                unit_cost: cost
+              });
+              currentSpent += cost;
+            }
+          }
+        }
+
+        window.location.href = 'itinerary.html';
+      } else {
+        alert('Failed to create trip: ' + response.message);
+      }
+    }
+  </script>
+</body>
+</html>

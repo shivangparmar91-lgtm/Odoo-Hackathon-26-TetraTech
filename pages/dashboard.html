@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="logged-in">
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Global Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">Traveloop <div class="dot"></div></div>
+    <div class="topbar-center">
+      <i class="fas fa-search"></i>
+      <input type="text" class="topbar-search" placeholder="Search trips, activities, cities...">
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+      <button class="btn-icon" onclick="filterDestinations(this)"><i class="fas fa-filter"></i></button>
+      <button class="btn-icon" onclick="sortDestinations()"><i class="fas fa-sort"></i></button>
+      <div class="avatar-circle">AM</div>
+    </div>
+  </div>
+
+  <!-- Global Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Main</div>
+      <a class="sidebar-link active" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+      <a class="sidebar-link " href="trips.html"><i class="fas fa-map-marked-alt"></i> My Trips</a>
+      <a class="sidebar-link " href="create-trip.html"><i class="fas fa-plus-circle"></i> Plan a Trip</a>
+      <a class="sidebar-link " href="itinerary.html"><i class="fas fa-calendar-alt"></i> Itinerary</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tools</div>
+      <a class="sidebar-link " href="search.html"><i class="fas fa-search"></i> Activity Search</a>
+      <a class="sidebar-link " href="checklist.html"><i class="fas fa-check-square"></i> Packing List</a>
+      <a class="sidebar-link " href="notes.html"><i class="fas fa-sticky-note"></i> Trip Notes</a>
+      <a class="sidebar-link " href="budget.html"><i class="fas fa-file-invoice-dollar"></i> Expenses</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Discover</div>
+      <a class="sidebar-link " href="community.html"><i class="fas fa-users"></i> Community</a>
+      <a class="sidebar-link " href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Admin</div>
+      <a class="sidebar-link " href="admin.html"><i class="fas fa-cog"></i> Admin Panel</a>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-nav">
+    <a class="active" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="" href="trips.html"><i class="fas fa-map-marked-alt"></i> Trips</a>
+    <a class="" href="checklist.html"><i class="fas fa-check-square"></i> Packing</a>
+    <a class="" href="community.html"><i class="fas fa-users"></i> Community</a>
+    <a class="" href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+  </div>
+<div class="main">
+<div class="banner">
+        <h2>Plan your next unforgettable journey</h2>
+        <p class="trip-mode india-mode">From royal palaces to Himalayan adventures.</p>
+        <p class="trip-mode intl-mode" style="display:none;">Explore beautiful destinations across the globe.</p>
+        <div class="banner-actions">
+          <button class="btn banner-btn-outline" onclick="window.location.href='community.html'">Explore Community</button>
+        </div>
+      </div>
+      <div class="screen-header"><h3 class="card-title">Top India Destinations</h3></div>
+      
+      <div class="grid-auto" style="margin-bottom: 40px;">
+        <div class="dest-card" onclick="quickPlanTrip('Jaipur')"><div class="dest-thumb">🏰</div><div style="display:flex; flex-direction:column; gap:4px;"><div class="dest-label">Jaipur</div><div class="dest-sublabel">Royal Heritage · ⭐4.8</div></div></div>
+        <div class="dest-card" onclick="quickPlanTrip('Goa')"><div class="dest-thumb">🏖️</div><div style="display:flex; flex-direction:column; gap:4px;"><div class="dest-label">Goa</div><div class="dest-sublabel">Beaches & Nightlife · ⭐4.7</div></div></div>
+        <div class="dest-card" onclick="quickPlanTrip('Kashmir')"><div class="dest-thumb">⛰️</div><div style="display:flex; flex-direction:column; gap:4px;"><div class="dest-label">Kashmir</div><div class="dest-sublabel">Heaven on Earth · ⭐4.9</div></div></div>
+        <div class="dest-card" onclick="quickPlanTrip('Kerala')"><div class="dest-thumb">🛶</div><div style="display:flex; flex-direction:column; gap:4px;"><div class="dest-label">Kerala</div><div class="dest-sublabel">Backwaters Escape · ⭐4.8</div></div></div>
+        <div class="dest-card" onclick="quickPlanTrip('Leh Ladakh')"><div class="dest-thumb">🏍️</div><div style="display:flex; flex-direction:column; gap:4px;"><div class="dest-label">Leh Ladakh</div><div class="dest-sublabel">Adventure Route · ⭐4.9</div></div></div>
+        <div class="dest-card" onclick="quickPlanTrip('Udaipur')"><div class="dest-thumb">🌅</div><div style="display:flex; flex-direction:column; gap:4px;"><div class="dest-label">Udaipur</div><div class="dest-sublabel">Lakes & Palaces · ⭐4.7</div></div></div>
+      </div>
+
+      <div class="screen-header"><h3 class="card-title">Top International Destinations</h3></div>
+      <div class="grid-auto" style="margin-bottom: 40px;">
+        <div class="dest-card" onclick="quickPlanTrip('Paris')"><div class="dest-thumb">🗼</div><div style="display:flex; flex-direction:column; gap:4px;"><div class="dest-label">Paris</div><div class="dest-sublabel">France · ⭐4.8</div></div></div>
+        <div class="dest-card" onclick="quickPlanTrip('Rome')"><div class="dest-thumb">🏟️</div><div style="display:flex; flex-direction:column; gap:4px;"><div class="dest-label">Rome</div><div class="dest-sublabel">Italy · ⭐4.9</div></div></div>
+        <div class="dest-card" onclick="quickPlanTrip('New York')"><div class="dest-thumb">🗽</div><div style="display:flex; flex-direction:column; gap:4px;"><div class="dest-label">New York</div><div class="dest-sublabel">USA · ⭐4.7</div></div></div>
+        <div class="dest-card" onclick="quickPlanTrip('Tokyo')"><div class="dest-thumb">🇯🇵</div><div style="display:flex; flex-direction:column; gap:4px;"><div class="dest-label">Tokyo</div><div class="dest-sublabel">Japan · ⭐4.8</div></div></div>
+        <div class="dest-card" onclick="quickPlanTrip('Bali')"><div class="dest-thumb">🇮🇩</div><div style="display:flex; flex-direction:column; gap:4px;"><div class="dest-label">Bali</div><div class="dest-sublabel">Indonesia · ⭐4.7</div></div></div>
+      </div>
+
+      <h3 class="card-title" style="margin-bottom: 16px;">Previous Trips</h3>
+      <div class="grid-3 trip-mode india-mode" id="trips-container-india">
+        <div class="trip-card">
+          <div class="trip-card-img" style="background: linear-gradient(135deg, var(--primary), var(--accent2));"></div>
+          <div class="trip-card-body">
+            <div class="trip-card-name">Rajasthan Heritage Trail</div>
+            <div class="trip-card-meta">Jun 2025 · <span class="badge badge-gray">Completed</span></div>
+            <div class="trip-card-meta"><i class="fas fa-user-friends"></i> 4 Travelers</div>
+          </div>
+          <div class="trip-card-footer"><span style="color:var(--text2)">Total Cost</span><span style="color:var(--primary)">₹42,000</span></div>
+        </div>
+        <div class="trip-card">
+          <div class="trip-card-img" style="background: linear-gradient(135deg, var(--teal), var(--primary));"></div>
+          <div class="trip-card-body">
+            <div class="trip-card-name">Goa Escape</div>
+            <div class="trip-card-meta">May 2026 · <span class="badge badge-green">Ongoing</span></div>
+            <div class="trip-card-meta"><i class="fas fa-user-friends"></i> 2 Travelers</div>
+          </div>
+          <div class="trip-card-footer"><span style="color:var(--text2)">Current Cost</span><span style="color:var(--primary)">₹18,400</span></div>
+        </div>
+        <div class="trip-card">
+          <div class="trip-card-img" style="background: linear-gradient(135deg, var(--accent2), #ff7e5f);"></div>
+          <div class="trip-card-body">
+            <div class="trip-card-name">Kerala Wellness Retreat</div>
+            <div class="trip-card-meta">Aug 2026 · <span class="badge badge-amber">Upcoming</span></div>
+            <div class="trip-card-meta"><i class="fas fa-user"></i> 1 Traveler</div>
+          </div>
+          <div class="trip-card-footer"><span style="color:var(--text2)">Budget</span><span style="color:var(--primary)">₹32,000</span></div>
+        </div>
+      </div>
+      <div class="grid-3 trip-mode intl-mode" style="display:none;" id="trips-container-intl">
+        <div class="trip-card">
+          <div class="trip-card-img" style="background: linear-gradient(135deg, var(--primary), var(--accent2));"></div>
+          <div class="trip-card-body">
+            <div class="trip-card-name">Paris & Rome Adventure</div>
+            <div class="trip-card-meta">Jun 2025 · <span class="badge badge-gray">Completed</span></div>
+            <div class="trip-card-meta"><i class="fas fa-user-friends"></i> 4 Travelers</div>
+          </div>
+          <div class="trip-card-footer"><span style="color:var(--text2)">Total Cost</span><span style="color:var(--primary)">$22,000</span></div>
+        </div>
+        <div class="trip-card">
+          <div class="trip-card-img" style="background: linear-gradient(135deg, var(--teal), var(--primary));"></div>
+          <div class="trip-card-body">
+            <div class="trip-card-name">Tokyo Highlights</div>
+            <div class="trip-card-meta">May 2026 · <span class="badge badge-green">Ongoing</span></div>
+            <div class="trip-card-meta"><i class="fas fa-user-friends"></i> 2 Travelers</div>
+          </div>
+          <div class="trip-card-footer"><span style="color:var(--text2)">Current Cost</span><span style="color:var(--primary)">$8,400</span></div>
+        </div>
+        <div class="trip-card">
+          <div class="trip-card-img" style="background: linear-gradient(135deg, var(--accent2), #ff7e5f);"></div>
+          <div class="trip-card-body">
+            <div class="trip-card-name">Bali Wellness Retreat</div>
+            <div class="trip-card-meta">Aug 2026 · <span class="badge badge-amber">Upcoming</span></div>
+            <div class="trip-card-meta"><i class="fas fa-user"></i> 1 Traveler</div>
+          </div>
+          <div class="trip-card-footer"><span style="color:var(--text2)">Budget</span><span style="color:var(--primary)">$3,200</span></div>
+        </div>
+      </div>
+</div>
+  <div class="modal-bg" id="plan-trip-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Plan a New Trip</h2><button class="modal-close" onclick="closeModal('plan-trip-modal')">&times;</button></div>
+      <div class="input-group">
+        <label class="label">Trip Type</label>
+        <div class="trip-type-selector" style="margin-bottom:0">
+          <button class="btn trip-type-btn active" data-type="india" onclick="switchTripType('india')" type="button">India Trip</button>
+          <button class="btn trip-type-btn" data-type="intl" onclick="switchTripType('intl')" type="button">International Trip</button>
+        </div>
+      </div>
+      <div class="input-group"><label class="label">Trip Name</label><input type="text" class="input" placeholder="e.g. Summer Vacation"></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Start Date</label><input type="date" class="input"></div>
+        <div class="input-group"><label class="label">End Date</label><input type="date" class="input"></div>
+      </div>
+      <div class="input-group"><label class="label">Destination</label><input type="text" class="input" placeholder="e.g. Jaipur, Rajasthan"></div>
+      <div class="input-group"><label class="label">Budget (<span class="currency-symbol">₹</span>)</label><input type="number" class="input" placeholder="e.g. 15000"></div>
+      <div style="display:flex;gap:16px;margin-top:24px;">
+        <button class="btn btn-primary" style="flex:1" onclick="closeModal('plan-trip-modal'); window.location.href='create-trip.html'; showToast('Started planning trip')">Continue</button>
+        <button class="btn" style="flex:1;border:1px solid var(--border)" onclick="closeModal('plan-trip-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-item-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Item to Checklist</h2><button class="modal-close" onclick="closeModal('add-item-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Item Name</label><input type="text" class="input" id="new-item-name" placeholder="e.g. Sunglasses"></div>
+      <div class="input-group">
+        <label class="label">Category</label>
+        <select class="select" id="new-item-category">
+          <option>Documents</option><option>Clothing</option><option>Electronics</option><option>Health & Hygiene</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="addChecklistItem()">Add Item</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-note-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Trip Note</h2><button class="modal-close" onclick="closeModal('add-note-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Title</label><input type="text" class="input" id="note-title" placeholder="e.g. Hotel Check-in"></div>
+      <div class="input-group"><label class="label">Content</label><textarea class="input" id="note-content" rows="4" placeholder="Write your notes here..."></textarea></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Day / Date</label><input type="text" class="input" id="note-day" placeholder="e.g. Day 3"></div>
+        <div class="input-group"><label class="label">Stop / City</label><input type="text" class="input" id="note-city" placeholder="e.g. Jaipur"></div>
+      </div>
+      <button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="addNote()">Save Note</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/api.js"></script>
+  <script src="../js/modules/trips.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    function quickPlanTrip(destination) {
+      localStorage.setItem('presetDestination', destination);
+      window.location.href = 'create-trip.html';
+    }
+
+    function sortDestinations() {
+      const grids = document.querySelectorAll('.grid-auto');
+      grids.forEach(grid => {
+        const cards = Array.from(grid.querySelectorAll('.dest-card'));
+        cards.sort((a, b) => {
+          const labelA = a.querySelector('.dest-label').innerText;
+          const labelB = b.querySelector('.dest-label').innerText;
+          return labelA.localeCompare(labelB);
+        });
+        cards.forEach(card => grid.appendChild(card));
+      });
+    }
+
+    function filterDestinations(btn) {
+      const grids = document.querySelectorAll('.grid-auto');
+      let isActive = btn.classList.toggle('active');
+      
+      btn.style.background = isActive ? 'var(--teal)' : '';
+      btn.style.color = isActive ? 'white' : '';
+
+      grids.forEach(grid => {
+        const cards = grid.querySelectorAll('.dest-card');
+        cards.forEach(card => {
+          if (!isActive) {
+            card.style.display = 'flex';
+            return;
+          }
+          const sublabel = card.querySelector('.dest-sublabel').innerText;
+          const ratingMatch = sublabel.match(/⭐(\d+\.\d+)/) || sublabel.match(/★(\d+\.\d+)/);
+          if (ratingMatch) {
+            const rating = parseFloat(ratingMatch[1]);
+            if (rating < 4.8) {
+              card.style.display = 'none';
+            } else {
+              card.style.display = 'flex';
+            }
+          }
+        });
+      });
+      showToast(isActive ? 'Showing top rated only (4.8+)' : 'Filters cleared!');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof initializeTrips === 'function') {
+        initializeTrips();
+      }
+
+      // Make Searchbar Usable
+      const searchInput = document.querySelector('.topbar-search');
+      if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            const query = searchInput.value.trim();
+            if (query) {
+              window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+            }
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Notes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="logged-in">
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Global Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">Traveloop <div class="dot"></div></div>
+    <div class="topbar-center">
+      <i class="fas fa-search"></i>
+      <input type="text" class="topbar-search" placeholder="Search trips, activities, cities...">
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+      <button class="btn-icon"><i class="fas fa-filter"></i></button>
+      <button class="btn-icon"><i class="fas fa-sort"></i></button>
+      <div class="avatar-circle">AM</div>
+    </div>
+  </div>
+
+  <!-- Global Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Main</div>
+      <a class="sidebar-link " href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+      <a class="sidebar-link " href="trips.html"><i class="fas fa-map-marked-alt"></i> My Trips <span class="badge badge-accent" style="background:var(--accent);color:white;margin-left:auto">3</span></a>
+      <a class="sidebar-link " href="create-trip.html"><i class="fas fa-plus-circle"></i> Plan a Trip</a>
+      <a class="sidebar-link " href="itinerary.html"><i class="fas fa-calendar-alt"></i> Itinerary</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tools</div>
+      <a class="sidebar-link " href="search.html"><i class="fas fa-search"></i> Activity Search</a>
+      <a class="sidebar-link " href="checklist.html"><i class="fas fa-check-square"></i> Packing List</a>
+      <a class="sidebar-link active" href="notes.html"><i class="fas fa-sticky-note"></i> Trip Notes</a>
+      <a class="sidebar-link " href="budget.html"><i class="fas fa-file-invoice-dollar"></i> Expenses</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Discover</div>
+      <a class="sidebar-link " href="community.html"><i class="fas fa-users"></i> Community</a>
+      <a class="sidebar-link " href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Admin</div>
+      <a class="sidebar-link " href="admin.html"><i class="fas fa-cog"></i> Admin Panel</a>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-nav">
+    <a class="" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="" href="trips.html"><i class="fas fa-map-marked-alt"></i> Trips</a>
+    <a class="" href="checklist.html"><i class="fas fa-check-square"></i> Packing</a>
+    <a class="" href="community.html"><i class="fas fa-users"></i> Community</a>
+    <a class="" href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+  </div>
+<div class="main">
+<div class="screen-header">
+        <h1>Trip Notes & Journal</h1>
+        <button class="btn btn-accent" onclick="showModal('add-note-modal')"><i class="fas fa-plus"></i> Add Note</button>
+      </div>
+      <div id="notes-container" class="trip-mode india-mode">
+        <div class="note-card">
+          <div class="note-header"><h3 class="note-title">Jaipur Hotel Check-in Details</h3><div class="note-actions"><button class="btn-icon" style="color: var(--accent)" onclick="this.closest('.note-card').remove(); showToast('Note deleted')"><i class="fas fa-trash"></i></button></div></div>
+          <p class="note-body">Check in after 2pm. Beautiful heritage hotel near Hawa Mahal. Make sure to present booking confirmation #1920X.</p>
+          <div class="note-meta">Day 1 · Dec 15, 2026 · Jaipur</div>
+        </div>
+        <div class="note-card">
+          <div class="note-header"><h3 class="note-title">Best Cafes in Udaipur</h3><div class="note-actions"><button class="btn-icon" style="color: var(--accent)" onclick="this.closest('.note-card').remove(); showToast('Note deleted')"><i class="fas fa-trash"></i></button></div></div>
+          <p class="note-body">Ambrai Restaurant for dinner. Try to get a lakeside table! Jheel's Ginger Coffee Bar for morning views.</p>
+          <div class="note-meta">Day 3 · Dec 17, 2026 · Udaipur</div>
+        </div>
+        <div class="note-card">
+          <div class="note-header"><h3 class="note-title">Leh Oxygen Tips</h3><div class="note-actions"><button class="btn-icon" style="color: var(--accent)" onclick="this.closest('.note-card').remove(); showToast('Note deleted')"><i class="fas fa-trash"></i></button></div></div>
+          <p class="note-body">Drink plenty of water. Rest on day 1 to acclimatize. Don't exert too much physically immediately after landing.</p>
+          <div class="note-meta">General Tip</div>
+        </div>
+        <div class="note-card">
+          <div class="note-header"><h3 class="note-title">Kerala Houseboat Timing</h3><div class="note-actions"><button class="btn-icon" style="color: var(--accent)" onclick="this.closest('.note-card').remove(); showToast('Note deleted')"><i class="fas fa-trash"></i></button></div></div>
+          <p class="note-body">Check-in exactly at 12 PM in Alleppey. Food is provided onboard. Don't miss the sunset.</p>
+          <div class="note-meta">Kerala Retreat</div>
+        </div>
+      </div>
+      
+      <div id="notes-container-intl" class="trip-mode intl-mode" style="display:none;">
+        <div class="note-card">
+          <div class="note-header"><h3 class="note-title">Hotel Check-in Details – Rome Stop</h3><div class="note-actions"><button class="btn-icon" style="color: var(--accent)" onclick="this.closest('.note-card').remove(); showToast('Note deleted')"><i class="fas fa-trash"></i></button></div></div>
+          <p class="note-body">Check in after 2pm, Room 302, Breakfast included 7-10am. Make sure to present booking confirmation #1920X.</p>
+          <div class="note-meta">Day 3 · June 19, 2025 · Rome</div>
+        </div>
+        <div class="note-card">
+          <div class="note-header"><h3 class="note-title">Best restaurants near Colosseum</h3><div class="note-actions"><button class="btn-icon" style="color: var(--accent)" onclick="this.closest('.note-card').remove(); showToast('Note deleted')"><i class="fas fa-trash"></i></button></div></div>
+          <p class="note-body">Osteria Barberini – try the cacio e pepe. Book in advance! Also check out Trattoria Luzzi for good wood-fired pizza.</p>
+          <div class="note-meta">Day 5 · June 21, 2025 · Rome</div>
+        </div>
+        <div class="note-card">
+          <div class="note-header"><h3 class="note-title">Louvre Tips – Paris Stop</h3><div class="note-actions"><button class="btn-icon" style="color: var(--accent)" onclick="this.closest('.note-card').remove(); showToast('Note deleted')"><i class="fas fa-trash"></i></button></div></div>
+          <p class="note-body">Enter through Richelieu wing to avoid crowds. Mona Lisa Level 1. Remember comfortable walking shoes.</p>
+          <div class="note-meta">Day 2 · June 16, 2025 · Paris</div>
+        </div>
+      </div>
+</div>
+  <div class="modal-bg" id="plan-trip-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Plan a New Trip</h2><button class="modal-close" onclick="closeModal('plan-trip-modal')">&times;</button></div>
+      <div class="input-group">
+        <label class="label">Trip Type</label>
+        <div class="trip-type-selector" style="margin-bottom:0">
+          <button class="btn trip-type-btn active" data-type="india" onclick="switchTripType('india')" type="button">India Trip</button>
+          <button class="btn trip-type-btn" data-type="intl" onclick="switchTripType('intl')" type="button">International Trip</button>
+        </div>
+      </div>
+      <div class="input-group"><label class="label">Trip Name</label><input type="text" class="input" placeholder="e.g. Summer Vacation"></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Start Date</label><input type="date" class="input"></div>
+        <div class="input-group"><label class="label">End Date</label><input type="date" class="input"></div>
+      </div>
+      <div class="input-group"><label class="label">Destination</label><input type="text" class="input" placeholder="e.g. Jaipur, Rajasthan"></div>
+      <div class="input-group"><label class="label">Budget (<span class="currency-symbol">₹</span>)</label><input type="number" class="input" placeholder="e.g. 15000"></div>
+      <div style="display:flex;gap:16px;margin-top:24px;">
+        <button class="btn btn-primary" style="flex:1" onclick="closeModal('plan-trip-modal'); window.location.href='create-trip.html'; showToast('Started planning trip')">Continue</button>
+        <button class="btn" style="flex:1;border:1px solid var(--border)" onclick="closeModal('plan-trip-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-item-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Item to Checklist</h2><button class="modal-close" onclick="closeModal('add-item-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Item Name</label><input type="text" class="input" id="new-item-name" placeholder="e.g. Sunglasses"></div>
+      <div class="input-group">
+        <label class="label">Category</label>
+        <select class="select" id="new-item-category">
+          <option>Documents</option><option>Clothing</option><option>Electronics</option><option>Health & Hygiene</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="addChecklistItem()">Add Item</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-note-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Trip Note</h2><button class="modal-close" onclick="closeModal('add-note-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Title</label><input type="text" class="input" id="note-title" placeholder="e.g. Hotel Check-in"></div>
+      <div class="input-group"><label class="label">Content</label><textarea class="input" id="note-content" rows="4" placeholder="Write your notes here..."></textarea></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Day / Date</label><input type="text" class="input" id="note-day" placeholder="e.g. Day 3"></div>
+        <div class="input-group"><label class="label">Stop / City</label><input type="text" class="input" id="note-city" placeholder="e.g. Jaipur"></div>
+      </div>
+      <button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="addNote()">Save Note</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/api.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const tripId = localStorage.getItem('currentTripId');
+    
+    if (!tripId) {
+      alert('Please select a trip from the dashboard first!');
+      window.location.href = 'dashboard.html';
+    }
+
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      loadNotes();
+    });
+
+    async function loadNotes() {
+      const response = await API.fetchData(`notes/${tripId}`);
+      if (response.success) {
+        const notes = response.data;
+        renderNotes(notes);
+      } else {
+        console.error('Failed to load notes:', response.message);
+      }
+    }
+
+    function renderNotes(notes) {
+      const container = document.getElementById('notes-container');
+      const containerIntl = document.getElementById('notes-container-intl');
+      
+      // Clear existing hardcoded notes
+      if (container) container.innerHTML = '';
+      if (containerIntl) containerIntl.innerHTML = '';
+
+      // We will put all notes in the active container based on trip type
+      // Or just put them in the main container and let CSS handle visibility if classes match
+      // Let's just put them in #notes-container for simplicity
+      const activeContainer = container || containerIntl;
+      
+      if (!activeContainer) return;
+
+      notes.forEach(note => {
+        const noteEl = document.createElement('div');
+        noteEl.className = 'note-card';
+        noteEl.innerHTML = `
+          <div class="note-header">
+            <h3 class="note-title">${note.title}</h3>
+            <div class="note-actions">
+              <button class="btn-icon" style="color: var(--accent)" onclick="deleteNoteItem(${note.id}, this)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <p class="note-body">${note.content}</p>
+          <div class="note-meta">${note.note_day || ''} ${note.city_name ? '· ' + note.city_name : ''}</div>
+        `;
+        activeContainer.appendChild(noteEl);
+      });
+    }
+
+    async function deleteNoteItem(noteId, el) {
+      if (!confirm('Are you sure you want to delete this note?')) return;
+      
+      const response = await API.deleteData(`notes/${noteId}`);
+      if (response.success) {
+        el.closest('.note-card').remove();
+        showToast('Note deleted');
+      } else {
+        alert('Failed to delete note');
+      }
+    }
+
+    // Override global addNote
+    async function addNote() {
+      const title = document.getElementById('note-title').value;
+      const content = document.getElementById('note-content').value;
+      const day = document.getElementById('note-day').value;
+      const city = document.getElementById('note-city').value;
+
+      if (!title || !content) {
+        alert('Title and Content are required');
+        return;
+      }
+
+      const response = await API.postData('notes/add', {
+        trip_id: tripId,
+        title,
+        content,
+        note_day: day,
+        city_name: city
+      });
+
+      if (response.success) {
+        closeModal('add-note-modal');
+        // Clear inputs
+        document.getElementById('note-title').value = '';
+        document.getElementById('note-content').value = '';
+        document.getElementById('note-day').value = '';
+        document.getElementById('note-city').value = '';
+        
+        loadNotes();
+        showToast('Note saved');
+      } else {
+        alert('Failed to save note');
+      }
+    }
+  </script>
+</body>
+</html>

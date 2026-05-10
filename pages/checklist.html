@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Checklist</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="logged-in">
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Global Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">Traveloop <div class="dot"></div></div>
+    <div class="topbar-center">
+      <i class="fas fa-search"></i>
+      <input type="text" class="topbar-search" placeholder="Search trips, activities, cities...">
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+      <button class="btn-icon"><i class="fas fa-filter"></i></button>
+      <button class="btn-icon"><i class="fas fa-sort"></i></button>
+      <div class="avatar-circle">AM</div>
+    </div>
+  </div>
+
+  <!-- Global Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Main</div>
+      <a class="sidebar-link " href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+      <a class="sidebar-link " href="trips.html"><i class="fas fa-map-marked-alt"></i> My Trips <span class="badge badge-accent" style="background:var(--accent);color:white;margin-left:auto">3</span></a>
+      <a class="sidebar-link " href="create-trip.html"><i class="fas fa-plus-circle"></i> Plan a Trip</a>
+      <a class="sidebar-link " href="itinerary.html"><i class="fas fa-calendar-alt"></i> Itinerary</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tools</div>
+      <a class="sidebar-link " href="search.html"><i class="fas fa-search"></i> Activity Search</a>
+      <a class="sidebar-link active" href="checklist.html"><i class="fas fa-check-square"></i> Packing List</a>
+      <a class="sidebar-link " href="notes.html"><i class="fas fa-sticky-note"></i> Trip Notes</a>
+      <a class="sidebar-link " href="budget.html"><i class="fas fa-file-invoice-dollar"></i> Expenses</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Discover</div>
+      <a class="sidebar-link " href="community.html"><i class="fas fa-users"></i> Community</a>
+      <a class="sidebar-link " href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Admin</div>
+      <a class="sidebar-link " href="admin.html"><i class="fas fa-cog"></i> Admin Panel</a>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-nav">
+    <a class="" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="" href="trips.html"><i class="fas fa-map-marked-alt"></i> Trips</a>
+    <a class="active" href="checklist.html"><i class="fas fa-check-square"></i> Packing</a>
+    <a class="" href="community.html"><i class="fas fa-users"></i> Community</a>
+    <a class="" href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+  </div>
+<div class="main">
+<div class="screen-header">
+        <div><h1 style="margin-bottom:8px">Packing Checklist</h1><p style="color:var(--text2)">Trip Essentials</p></div>
+        <div style="display:flex;gap:16px"><button class="btn btn-sm" style="border:1px solid var(--border)" onclick="resetChecklist()">Reset All</button></div>
+      </div>
+      <div class="card" style="margin-bottom: 24px; display:flex; align-items:center; gap:24px">
+        <div style="flex:1">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px"><span style="font-weight:bold" id="progress-text">5 / 12 items packed</span><span class="badge badge-amber">Almost there</span></div>
+          <div class="progress-bar"><div class="progress-fill teal" id="progress-fill" style="width: 42%"></div></div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div id="check-left-col">
+          <div class="checklist-group" data-group="Documents">
+            <div class="checklist-group-header"><span>Documents</span><span style="color:var(--text3)" class="group-count">3/4</span></div>
+            <div class="checklist-items">
+              <div class="check-item checked" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-check-square"></i></div><span>Passport</span></div>
+              <div class="check-item checked trip-mode india-mode" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-check-square"></i></div><span>Aadhaar Card</span></div>
+              <div class="check-item checked trip-mode intl-mode" onclick="toggleCheck(this)" style="display:none;"><div class="check-box"><i class="far fa-check-square"></i></div><span>Visa</span></div>
+              <div class="check-item checked trip-mode india-mode" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-check-square"></i></div><span>Train Tickets</span></div>
+              <div class="check-item checked trip-mode intl-mode" onclick="toggleCheck(this)" style="display:none;"><div class="check-box"><i class="far fa-check-square"></i></div><span>Flight Tickets</span></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-square"></i></div><span>Hotel Booking</span></div>
+            </div>
+          </div>
+          <div class="checklist-group" data-group="Clothing">
+            <div class="checklist-group-header"><span>Clothing</span><span style="color:var(--text3)" class="group-count">1/4</span></div>
+            <div class="checklist-items">
+              <div class="check-item checked" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-check-square"></i></div><span>Casual Shirts</span></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-square"></i></div><span>Trousers</span></div>
+              <div class="check-item trip-mode india-mode" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-square"></i></div><span>Traditional Wear</span></div>
+              <div class="check-item trip-mode intl-mode" onclick="toggleCheck(this)" style="display:none;"><div class="check-box"><i class="far fa-square"></i></div><span>Walking Shoes</span></div>
+              <div class="check-item trip-mode india-mode" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-square"></i></div><span>Trekking Shoes</span></div>
+              <div class="check-item trip-mode intl-mode" onclick="toggleCheck(this)" style="display:none;"><div class="check-box"><i class="far fa-square"></i></div><span>Light Jacket</span></div>
+            </div>
+          </div>
+        </div>
+        <div id="check-right-col">
+          <div class="checklist-group" data-group="Electronics">
+            <div class="checklist-group-header"><span>Electronics</span><span style="color:var(--text3)" class="group-count">1/3</span></div>
+            <div class="checklist-items">
+              <div class="check-item checked trip-mode india-mode" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-check-square"></i></div><span>Power Bank</span></div>
+              <div class="check-item checked trip-mode intl-mode" onclick="toggleCheck(this)" style="display:none;"><div class="check-box"><i class="far fa-check-square"></i></div><span>Phone Charger</span></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-square"></i></div><span>Power Adapter</span></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-square"></i></div><span>Earphones</span></div>
+            </div>
+          </div>
+          <div class="checklist-group" data-group="Health & Hygiene">
+            <div class="checklist-group-header"><span>Health & Hygiene</span><span style="color:var(--text3)" class="group-count">0/3</span></div>
+            <div class="checklist-items">
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-square"></i></div><span>Medicines</span></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-square"></i></div><span>Sunscreen</span></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"><i class="far fa-square"></i></div><span>First Aid Kit</span></div>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="width:100%" onclick="showModal('add-item-modal')">+ Add Item to Checklist</button>
+        </div>
+      </div>
+</div>
+  <div class="modal-bg" id="plan-trip-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Plan a New Trip</h2><button class="modal-close" onclick="closeModal('plan-trip-modal')">&times;</button></div>
+      <div class="input-group">
+        <label class="label">Trip Type</label>
+        <div class="trip-type-selector" style="margin-bottom:0">
+          <button class="btn trip-type-btn active" data-type="india" onclick="switchTripType('india')" type="button">India Trip</button>
+          <button class="btn trip-type-btn" data-type="intl" onclick="switchTripType('intl')" type="button">International Trip</button>
+        </div>
+      </div>
+      <div class="input-group"><label class="label">Trip Name</label><input type="text" class="input" placeholder="e.g. Summer Vacation"></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Start Date</label><input type="date" class="input"></div>
+        <div class="input-group"><label class="label">End Date</label><input type="date" class="input"></div>
+      </div>
+      <div class="input-group"><label class="label">Destination</label><input type="text" class="input" placeholder="e.g. Jaipur, Rajasthan"></div>
+      <div class="input-group"><label class="label">Budget (<span class="currency-symbol">₹</span>)</label><input type="number" class="input" placeholder="e.g. 15000"></div>
+      <div style="display:flex;gap:16px;margin-top:24px;">
+        <button class="btn btn-primary" style="flex:1" onclick="closeModal('plan-trip-modal'); window.location.href='create-trip.html'; showToast('Started planning trip')">Continue</button>
+        <button class="btn" style="flex:1;border:1px solid var(--border)" onclick="closeModal('plan-trip-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-item-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Item to Checklist</h2><button class="modal-close" onclick="closeModal('add-item-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Item Name</label><input type="text" class="input" id="new-item-name" placeholder="e.g. Sunglasses"></div>
+      <div class="input-group">
+        <label class="label">Category</label>
+        <select class="select" id="new-item-category">
+          <option>Documents</option><option>Clothing</option><option>Electronics</option><option>Health & Hygiene</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="addChecklistItem()">Add Item</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-note-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Trip Note</h2><button class="modal-close" onclick="closeModal('add-note-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Title</label><input type="text" class="input" id="note-title" placeholder="e.g. Hotel Check-in"></div>
+      <div class="input-group"><label class="label">Content</label><textarea class="input" id="note-content" rows="4" placeholder="Write your notes here..."></textarea></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Day / Date</label><input type="text" class="input" id="note-day" placeholder="e.g. Day 3"></div>
+        <div class="input-group"><label class="label">Stop / City</label><input type="text" class="input" id="note-city" placeholder="e.g. Jaipur"></div>
+      </div>
+      <button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="addNote()">Save Note</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/api.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const tripId = localStorage.getItem('currentTripId');
+    
+    if (!tripId) {
+      alert('Please select a trip from the dashboard first!');
+      window.location.href = 'dashboard.html';
+    }
+
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      loadChecklist();
+    });
+
+    async function loadChecklist() {
+      const response = await API.fetchData(`checklist/${tripId}`);
+      if (response.success) {
+        const items = response.data;
+        renderChecklist(items);
+      } else {
+        console.error('Failed to load checklist:', response.message);
+      }
+    }
+
+    function renderChecklist(items) {
+      // Clear existing items but keep headers if possible, or rebuild
+      // Let's rebuild the groups based on categories
+      const groups = {
+        'Documents': [],
+        'Clothing': [],
+        'Electronics': [],
+        'Health & Hygiene': []
+      };
+
+      items.forEach(item => {
+        if (groups[item.category]) {
+          groups[item.category].push(item);
+        } else {
+          groups[item.category] = [item];
+        }
+      });
+
+      // Update DOM
+      for (const [category, catItems] of Object.entries(groups)) {
+        const groupEl = document.querySelector(`.checklist-group[data-group="${category}"]`);
+        if (groupEl) {
+          const itemsContainer = groupEl.querySelector('.checklist-items');
+          itemsContainer.innerHTML = '';
+          catItems.forEach(item => {
+            const itemEl = document.createElement('div');
+            itemEl.className = `check-item ${item.is_completed ? 'checked' : ''}`;
+            itemEl.setAttribute('onclick', `toggleCheckItem(this, ${item.id})`);
+            itemEl.innerHTML = `
+              <div class="check-box"><i class="far ${item.is_completed ? 'fa-check-square' : 'fa-square'}"></i></div>
+              <span>${item.item_name}</span>
+              <button class="btn-icon" style="margin-left:auto; background:none; border:none; cursor:pointer; color:var(--text3);" onclick="event.stopPropagation(); deleteItem(${item.id}, this)"><i class="fas fa-trash"></i></button>
+            `;
+            itemsContainer.appendChild(itemEl);
+          });
+          
+          // Update count
+          const checkedCount = catItems.filter(i => i.is_completed).length;
+          groupEl.querySelector('.group-count').innerText = `${checkedCount}/${catItems.length}`;
+        }
+      }
+      
+      // Update overall progress
+      updateOverallProgress(items);
+    }
+
+    function updateOverallProgress(items) {
+      const total = items.length;
+      const checked = items.filter(i => i.is_completed).length;
+      const percentage = total === 0 ? 0 : Math.round((checked / total) * 100);
+      
+      const progressText = document.getElementById('progress-text');
+      const progressFill = document.getElementById('progress-fill');
+      
+      if (progressText) progressText.innerText = `${checked} / ${total} items packed`;
+      if (progressFill) progressFill.style.width = percentage + '%';
+    }
+
+    async function deleteItem(id, el) {
+      if (confirm('Are you sure you want to remove this item?')) {
+        const response = await API.deleteData(`checklist/${id}`);
+        if (response.success) {
+          const itemEl = el.closest('.check-item');
+          itemEl.remove();
+          showToast('Item removed');
+          loadChecklist();
+        }
+      }
+    }
+
+    function removeItem(el) {
+      const itemEl = el.closest('.check-item');
+      itemEl.remove();
+      showToast('Item removed');
+      
+      // Update progress locally
+      const items = document.querySelectorAll('.check-item');
+      const checked = document.querySelectorAll('.check-item.checked');
+      const total = items.length;
+      const checkedCount = checked.length;
+      const percentage = total === 0 ? 0 : Math.round((checkedCount / total) * 100);
+      
+      const progressText = document.getElementById('progress-text');
+      const progressFill = document.getElementById('progress-fill');
+      
+      if (progressText) progressText.innerText = `${checkedCount} / ${total} items packed`;
+      if (progressFill) progressFill.style.width = percentage + '%';
+    }
+
+    async function toggleCheckItem(el, itemId) {
+      // Toggle UI for instant feedback
+      el.classList.toggle('checked');
+      const icon = el.querySelector('.check-box i');
+      if (el.classList.contains('checked')) {
+        icon.classList.replace('fa-square', 'fa-check-square');
+      } else {
+        icon.classList.replace('fa-check-square', 'fa-square');
+      }
+
+      // Call backend
+      const response = await API.putData(`checklist/toggle/${itemId}`, {});
+      if (response.success) {
+        // Reload to update counts and progress
+        loadChecklist();
+      } else {
+        alert('Failed to update item');
+        // Revert
+        el.classList.toggle('checked');
+        if (el.classList.contains('checked')) {
+          icon.classList.replace('fa-square', 'fa-check-square');
+        } else {
+          icon.classList.replace('fa-check-square', 'fa-square');
+        }
+      }
+    }
+
+    // Override global addChecklistItem
+    async function addChecklistItem() {
+      const name = document.getElementById('new-item-name').value;
+      const cat = document.getElementById('new-item-category').value;
+      if (!name) return;
+
+      const response = await API.postData('checklist/add', {
+        trip_id: tripId,
+        item_name: name,
+        category: cat
+      });
+
+      if (response.success) {
+        closeModal('add-item-modal');
+        document.getElementById('new-item-name').value = '';
+        loadChecklist();
+        showToast('Item added');
+      } else {
+        alert('Failed to add item');
+      }
+    }
+  </script>
+</body>
+</html>

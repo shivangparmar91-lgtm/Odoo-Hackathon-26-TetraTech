@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop - Itinerary</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="logged-in">
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Global Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">Traveloop <div class="dot"></div></div>
+    <div class="topbar-center">
+      <i class="fas fa-search"></i>
+      <input type="text" class="topbar-search" placeholder="Search trips, activities, cities...">
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+      <button class="btn-icon"><i class="fas fa-filter"></i></button>
+      <button class="btn-icon"><i class="fas fa-sort"></i></button>
+      <div class="avatar-circle">AM</div>
+    </div>
+  </div>
+
+  <!-- Global Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Main</div>
+      <a class="sidebar-link " href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+      <a class="sidebar-link " href="trips.html"><i class="fas fa-map-marked-alt"></i> My Trips <span class="badge badge-accent" style="background:var(--accent);color:white;margin-left:auto">3</span></a>
+      <a class="sidebar-link " href="create-trip.html"><i class="fas fa-plus-circle"></i> Plan a Trip</a>
+      <a class="sidebar-link active" href="itinerary.html"><i class="fas fa-calendar-alt"></i> Itinerary</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Tools</div>
+      <a class="sidebar-link " href="search.html"><i class="fas fa-search"></i> Activity Search</a>
+      <a class="sidebar-link " href="checklist.html"><i class="fas fa-check-square"></i> Packing List</a>
+      <a class="sidebar-link " href="notes.html"><i class="fas fa-sticky-note"></i> Trip Notes</a>
+      <a class="sidebar-link " href="budget.html"><i class="fas fa-file-invoice-dollar"></i> Expenses</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Discover</div>
+      <a class="sidebar-link " href="community.html"><i class="fas fa-users"></i> Community</a>
+      <a class="sidebar-link " href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Admin</div>
+      <a class="sidebar-link " href="admin.html"><i class="fas fa-cog"></i> Admin Panel</a>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-nav">
+    <a class="" href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a class="" href="trips.html"><i class="fas fa-map-marked-alt"></i> Trips</a>
+    <a class="" href="checklist.html"><i class="fas fa-check-square"></i> Packing</a>
+    <a class="" href="community.html"><i class="fas fa-users"></i> Community</a>
+    <a class="" href="profile.html"><i class="fas fa-user-circle"></i> Profile</a>
+  </div>
+<div class="main">
+<div class="screen-header" style="margin-bottom:8px">
+        <h1>Itinerary</h1>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-primary btn-sm" onclick="window.location.href='create-trip.html'">Plan a Trip</button>
+          <button class="btn btn-primary btn-sm" onclick="addItinerarySection()">+ Add Section</button>
+          <button class="btn btn-accent btn-sm" onclick="window.location.href='budget.html'">View Budget</button>
+        </div>
+      </div>
+      <p id="trip-title-header" style="color:var(--text2); margin-bottom:24px">Loading Trip...</p>
+      
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom: 24px;">Build Itinerary</h3>
+          <div id="itinerary-sections-container" style="border-left: 2px solid var(--border); padding-left: 24px; margin-left: 12px;">
+            <!-- Dynamic Sections -->
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom: 24px;">Day-by-Day View</h3>
+          <div id="day-by-day-container">
+            <!-- Dynamic Days -->
+          </div>
+        </div>
+      </div>
+</div>
+  <div class="modal-bg" id="plan-trip-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Plan a New Trip</h2><button class="modal-close" onclick="closeModal('plan-trip-modal')">&times;</button></div>
+      <div class="input-group">
+        <label class="label">Trip Type</label>
+        <div class="trip-type-selector" style="margin-bottom:0">
+          <button class="btn trip-type-btn active" data-type="india" onclick="switchTripType('india')" type="button">India Trip</button>
+          <button class="btn trip-type-btn" data-type="intl" onclick="switchTripType('intl')" type="button">International Trip</button>
+        </div>
+      </div>
+      <div class="input-group"><label class="label">Trip Name</label><input type="text" class="input" placeholder="e.g. Summer Vacation"></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Start Date</label><input type="date" class="input"></div>
+        <div class="input-group"><label class="label">End Date</label><input type="date" class="input"></div>
+      </div>
+      <div class="input-group"><label class="label">Destination</label><input type="text" class="input" placeholder="e.g. Jaipur, Rajasthan"></div>
+      <div class="input-group"><label class="label">Budget (<span class="currency-symbol">₹</span>)</label><input type="number" class="input" placeholder="e.g. 15000"></div>
+      <div style="display:flex;gap:16px;margin-top:24px;">
+        <button class="btn btn-primary" style="flex:1" onclick="closeModal('plan-trip-modal'); window.location.href='create-trip.html'; showToast('Started planning trip')">Continue</button>
+        <button class="btn" style="flex:1;border:1px solid var(--border)" onclick="closeModal('plan-trip-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-item-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Item to Checklist</h2><button class="modal-close" onclick="closeModal('add-item-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Item Name</label><input type="text" class="input" id="new-item-name" placeholder="e.g. Sunglasses"></div>
+      <div class="input-group">
+        <label class="label">Category</label>
+        <select class="select" id="new-item-category">
+          <option>Documents</option><option>Clothing</option><option>Electronics</option><option>Health & Hygiene</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="addChecklistItem()">Add Item</button>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="add-note-modal">
+    <div class="modal">
+      <div class="modal-header"><h2 class="modal-title">Add Trip Note</h2><button class="modal-close" onclick="closeModal('add-note-modal')">&times;</button></div>
+      <div class="input-group"><label class="label">Title</label><input type="text" class="input" id="note-title" placeholder="e.g. Hotel Check-in"></div>
+      <div class="input-group"><label class="label">Content</label><textarea class="input" id="note-content" rows="4" placeholder="Write your notes here..."></textarea></div>
+      <div class="form-grid">
+        <div class="input-group"><label class="label">Day / Date</label><input type="text" class="input" id="note-day" placeholder="e.g. Day 3"></div>
+        <div class="input-group"><label class="label">Stop / City</label><input type="text" class="input" id="note-city" placeholder="e.g. Jaipur"></div>
+      </div>
+      <button class="btn btn-accent" style="width:100%;margin-top:16px" onclick="addNote()">Save Note</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="../js/api.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const tripId = localStorage.getItem('currentTripId');
+    
+    async function loadItinerary() {
+      if (!tripId) {
+        document.getElementById('trip-title-header').innerText = 'Please select a trip from the dashboard first!';
+        return;
+      }
+
+      const response = await API.fetchData(`trips/${tripId}`);
+      if (response.success) {
+        const trip = response.data;
+        document.getElementById('trip-title-header').innerText = `${trip.trip_name} · ${trip.destination}`;
+        
+        const sectionsContainer = document.getElementById('itinerary-sections-container');
+        const daysContainer = document.getElementById('day-by-day-container');
+        
+        if (sectionsContainer) {
+          sectionsContainer.innerHTML = `
+            <div style="position:relative; margin-bottom: 32px;">
+              <div style="position:absolute; left:-31px; top:0; width:16px; height:16px; border-radius:50%; background:var(--accent);"></div>
+              <div style="font-weight:bold; font-size:1.125rem">Section 1: Explore ${trip.destination}</div>
+              <div style="color:var(--text2); font-size:0.875rem; margin-bottom:8px">Highlights & Sightseeing</div>
+              <div class="badge badge-teal" style="background:rgba(22,199,154,0.1); color:var(--teal)">Budget ₹${trip.total_budget || '0'}</div>
+            </div>
+          `;
+        }
+        
+        if (daysContainer) {
+          const start = new Date(trip.start_date);
+          const end = new Date(trip.end_date);
+          const diffTime = Math.abs(end - start);
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Include start day
+
+          // Read from localStorage
+          const activities = JSON.parse(localStorage.getItem(`trip_${tripId}_activities`)) || [];
+          const places = JSON.parse(localStorage.getItem(`trip_${tripId}_places`)) || [];
+
+          // Fallback lists for Option 2
+          const fallbackActivities = [
+            "Local Market Shopping",
+            "Photography & Sunset Walk",
+            "Try Local Cuisine at a famous restaurant",
+            "Souvenir Shopping",
+            "City Walking Tour",
+            "Relax at a local cafe"
+          ];
+          
+          const fallbackPlaces = [
+            "City Center",
+            "Local Market Area",
+            "Old Town",
+            "Scenic Viewpoint",
+            "Main Square"
+          ];
+
+          let daysHtml = '';
+          let activityIndex = 0;
+          
+          for (let i = 1; i <= diffDays; i++) {
+            const dayPlace = places[i - 1] || fallbackPlaces[(i - 1) % fallbackPlaces.length];
+            
+            // Get up to 2 activities for this day
+            const act1 = activities[activityIndex++] || fallbackActivities[(i - 1) % fallbackActivities.length];
+            const act2 = activities[activityIndex++]; // Might be undefined if selections run out
+            
+            daysHtml += `
+              <div class="day-block">
+                <div class="day-label">Day ${i}</div>
+                <div class="itinerary-item">
+                  <div class="itinerary-time">09:00</div>
+                  <div class="itinerary-content"><h4>${i === 1 ? 'Arrive at' : 'Visit'} ${dayPlace}</h4></div>
+                  <div class="itinerary-budget">-</div>
+                </div>
+                <div class="itinerary-item">
+                  <div class="itinerary-time">14:00</div>
+                  <div class="itinerary-content"><h4>Activity: ${act1}</h4></div>
+                  <div class="itinerary-budget">-</div>
+                </div>
+            `;
+            
+            if (act2) {
+              daysHtml += `
+                <div class="itinerary-item">
+                  <div class="itinerary-time">18:00</div>
+                  <div class="itinerary-content"><h4>Evening: ${act2}</h4></div>
+                  <div class="itinerary-budget">-</div>
+                </div>
+              `;
+            }
+            
+            daysHtml += `</div>`; // Close day-block
+          }
+          daysContainer.innerHTML = daysHtml;
+        }
+      }
+    }
+
+    function addItinerarySection() {
+      const activity = prompt("Enter a custom activity for your itinerary:");
+      if (activity) {
+        const container = document.querySelector('.day-block');
+        if (container) {
+          const div = document.createElement('div');
+          div.className = 'itinerary-item';
+          div.innerHTML = `
+            <div class="itinerary-time">Custom</div>
+            <div class="itinerary-content"><h4>${activity}</h4></div>
+            <div class="itinerary-budget">-</div>
+          `;
+          container.appendChild(div);
+          showToast('Activity added to Day 1!');
+        } else {
+          showToast('No days found to add activity!');
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadItinerary();
+    });
+  </script>
+</body>
+</html>

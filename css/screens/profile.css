@@ -1,0 +1,42 @@
+.profile-header {
+  background-color: var(--surface);
+  border-radius: var(--radius);
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  box-shadow: var(--shadow);
+  margin-bottom: 32px;
+}
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: var(--surface);
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.profile-info {
+  flex: 1;
+}
+.profile-info h1 {
+  margin-bottom: 8px;
+}
+.profile-stats {
+  display: flex;
+  gap: 24px;
+  text-align: center;
+}
+.profile-stat-val {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+.profile-stat-label {
+  font-size: 0.875rem;
+  color: var(--text3);
+}

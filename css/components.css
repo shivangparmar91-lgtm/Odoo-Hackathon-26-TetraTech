@@ -1,0 +1,54 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.btn-primary { background-color: var(--primary); color: var(--surface); }
+.btn-primary:hover { background-color: var(--accent); color: var(--surface); }
+.btn-accent { background-color: var(--accent); color: var(--surface); }
+.btn-teal { background-color: var(--teal); color: var(--surface); }
+.btn-sm { padding: 6px 12px; font-size: 0.875rem; border-radius: 8px; }
+.btn-icon { width: 36px; height: 36px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--surface3); color: var(--text2); }
+.btn-icon:hover { background-color: var(--accent); color: var(--surface); }
+.card { background-color: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; }
+.card-sm { padding: 16px; }
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.card-title { font-size: 1.25rem; }
+.input { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; background-color: var(--surface); color: var(--text); transition: border 0.2s; }
+.input:focus { border-color: var(--accent); }
+.select { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; background-color: var(--surface); color: var(--text); appearance: none; }
+.input-group { margin-bottom: 16px; }
+.label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.875rem; color: var(--text2); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.badge { padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+.badge-green { background-color: rgba(22, 199, 154, 0.1); color: var(--teal); }
+.badge-amber { background-color: rgba(245, 166, 35, 0.1); color: var(--accent2); }
+.badge-red { background-color: rgba(233, 69, 96, 0.1); color: var(--accent); }
+.badge-blue { background-color: rgba(0, 123, 255, 0.1); color: #007bff; }
+.badge-gray { background-color: var(--surface3); color: var(--text2); }
+.badge-pink { background-color: rgba(233, 69, 96, 0.1); color: var(--accent); }
+.progress-bar { width: 100%; height: 8px; background-color: var(--surface3); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background-color: var(--accent); transition: width 0.3s; }
+.progress-fill.teal { background-color: var(--teal); }
+.tab-row { display: flex; gap: 16px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+.tab { padding: 12px 0; color: var(--text2); font-weight: 500; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s; }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.chip { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 20px; background-color: var(--surface3); color: var(--text2); font-size: 0.875rem; cursor: pointer; transition: all 0.2s; margin-right: 8px; margin-bottom: 8px; }
+.chip.active { background-color: var(--accent); color: var(--surface); }
+.modal-bg { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(26,26,46,0.8); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(4px); }
+.modal-bg.open { opacity: 1; pointer-events: auto; }
+.modal { background-color: var(--surface); border-radius: var(--radius); width: 90%; max-width: 500px; padding: 24px; box-shadow: var(--shadow); transform: translateY(20px); transition: transform 0.3s; }
+.modal-bg.open .modal { transform: translateY(0); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.modal-title { font-size: 1.25rem; font-family: var(--font-heading); color: var(--primary); }
+.modal-close { background: none; border: none; font-size: 1.5rem; color: var(--text3); cursor: pointer; }
+.modal-close:hover { color: var(--accent); }
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th, .data-table td { padding: 16px; text-align: left; border-bottom: 1px solid var(--border); }
+.data-table th { font-weight: 600; color: var(--text2); background-color: var(--surface2); font-size: 0.875rem; }
+.data-table tr:hover td { background-color: var(--surface2); }
